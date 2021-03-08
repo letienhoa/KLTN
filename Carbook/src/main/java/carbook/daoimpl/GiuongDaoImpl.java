@@ -26,9 +26,11 @@ public class GiuongDaoImpl extends AbstractDao<Integer,GiuongModelData>  impleme
 		procedureCall.registerParameter("tuyenXeId", Integer.class, ParameterMode.IN).bindValue(tuyenXeId);
 		procedureCall.registerParameter("ngay", Date.class, ParameterMode.IN).bindValue(ngay);
 		procedureCall.registerParameter("gio", Integer.class, ParameterMode.IN).bindValue(gio);
-		procedureCall.registerParameter("floor", Long.class, ParameterMode.OUT);
-		procedureCall.registerParameter("row", Long.class, ParameterMode.OUT);
-		procedureCall.registerParameter("srow", Long.class, ParameterMode.OUT);
+		procedureCall.registerParameter("floor", Integer.class, ParameterMode.OUT);
+		procedureCall.registerParameter("row", Integer.class, ParameterMode.OUT);
+		procedureCall.registerParameter("srow", Integer.class, ParameterMode.OUT);
+		procedureCall.registerParameter("slotCount", Integer.class, ParameterMode.OUT);
+		
 		
 		List<GiuongModelData> list =procedureCall.getResultList();
 	    
@@ -37,6 +39,8 @@ public class GiuongDaoImpl extends AbstractDao<Integer,GiuongModelData>  impleme
 	    listGiuongModelData.setRow((Integer) procedureCall.getOutputParameterValue("row"));
 	    listGiuongModelData.setFloor((Integer) procedureCall.getOutputParameterValue("floor"));
 	    listGiuongModelData.setSrow((Integer) procedureCall.getOutputParameterValue("srow"));
+	    listGiuongModelData.setSlotCount((Integer) procedureCall.getOutputParameterValue("slotCount"));
+	    
 	    listGiuongModelData.setListGiuong(list);
 		return listGiuongModelData;
 	}

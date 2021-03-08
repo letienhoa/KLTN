@@ -41,6 +41,9 @@ public class Xe {
 	@Column(name="srow")
 	private int srow;
 	
+	@Column(name="slot_count")
+	private int slotCount;
+	
 	public Xe() {
 		
 	}
@@ -123,6 +126,14 @@ public class Xe {
 
 	public void setSrow(int srow) {
 		this.srow = srow;
+	}
+
+	public int getSlotCount() {
+		return slotCount;
+	}
+
+	public void setSlotCount(int slotCount) {
+		this.slotCount = slotCount;
 	}
 	
 	
