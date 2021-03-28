@@ -29,7 +29,13 @@ public class TuyenXeDaoImpl extends AbstractDao<Integer,TuyenXe> implements Tuye
 		Root<TuyenXe> root = criteria.from(TuyenXe.class);
 		criteria.select(root).where(this.getBuilder().equal(root.get("diemDiId"), DiemDi),
 									this.getBuilder().equal(root.get("diemToiId"),DiemToi));
-		return this.getSession().createQuery(criteria).getSingleResult();
+		try {
+			return this.getSession().createQuery(criteria).getSingleResult();
+		}catch (Exception e) {
+			
+			TuyenXe tuyenXe=null;
+			return tuyenXe;
+		}
 	}
 
 	@Override

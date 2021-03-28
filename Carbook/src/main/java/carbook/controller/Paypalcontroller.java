@@ -206,7 +206,6 @@ import com.paypal.base.rest.OAuthTokenCredential;
 		public Integer getcount(){
 			Integer h = veDao.spGetCountGiuong(101);
 			
-		
 			return h;
 		}
 	  
@@ -281,7 +280,7 @@ import com.paypal.base.rest.OAuthTokenCredential;
 		 * 
 		 * } return "redirect:/"; }
 		 */
-  
+	
 
 		
   }
