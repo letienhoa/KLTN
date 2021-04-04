@@ -50,10 +50,12 @@ import carbook.service.PaypalServices;
 public class TuyenXeController {
 	
 	
-	 @Autowired 
+	 @SuppressWarnings("unused")
+	@Autowired 
 	  private PaypalServices paypalService;
 	  
-	  @Autowired 
+	  @SuppressWarnings("unused")
+	@Autowired 
 	  private APIContext apiContext1;
 	  
 	  

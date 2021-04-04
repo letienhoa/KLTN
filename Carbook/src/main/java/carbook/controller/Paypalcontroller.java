@@ -55,7 +55,8 @@ import com.paypal.base.rest.OAuthTokenCredential;
   
   @RequestMapping("/api/paypal") public class Paypalcontroller {
   
-	  @Autowired 
+	  @SuppressWarnings("unused")
+	@Autowired 
 	  private PaypalServices paypalService;
 	  
 	  @Autowired 

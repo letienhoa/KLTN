@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import carbook.dao.PointDao;
-import carbook.dao.QuyDoiDiemDao;
+
 import carbook.dao.VeDao;
 import carbook.entity.ThongKeDoanhThuModelData;
 import carbook.entity.Ve;
 import carbook.entity.VeCustomerDataModel;
-import carbook.entity.VeExcelDataModel;
+
 import carbook.entity.VeForCustomerByCodeDataModelFinal;
 import carbook.entity.VeThongKeModelDate;
 import carbook.request.VeHoiKhuRequest;
@@ -48,8 +48,7 @@ public class VeController {
 	@Autowired
 	private PointDao pointDao;
 	
-	@Autowired
-	private QuyDoiDiemDao quyDoiDiemDao;
+
 	
 	//Thống kê theo tuyến
 	@RequestMapping(value ="thong-ke-theo-tuyen", method = RequestMethod.GET )
