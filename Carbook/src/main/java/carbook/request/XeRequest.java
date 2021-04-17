@@ -20,7 +20,8 @@ public class XeRequest {
 	private int row;
 	@JsonProperty("srow")
 	private int srow;
-	
+	@JsonProperty("slot_count")
+	private int slotCount;
 	
 	public XeRequest() {
 
@@ -89,6 +90,13 @@ public class XeRequest {
 	public void setSrow(int srow) {
 		this.srow = srow;
 	}
-	
+
+	public int getSlotCount() {
+		return slotCount;
+	}
+
+	public void setSlotCount(int slotCount) {
+		this.slotCount = slotCount;
+	}
 	
 }

@@ -38,7 +38,7 @@ public class XeController {
 		xe.setFloor(wrraper.getFloor());
 		xe.setRow(wrraper.getRow());
 		xe.setSrow(wrraper.getSrow());
-		
+		xe.setSlotCount(wrraper.getSlotCount());
 		xeDao.create(xe);		
 		
 		response.setData(xe);

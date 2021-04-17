@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="ve")
+@Table(name = "ve")
 public class Ve extends BaseEntity {
 
 	/**
@@ -18,42 +18,45 @@ public class Ve extends BaseEntity {
 
 	@Id
 	private int id;
-	
-	@Column(name="gio_chay")
+
+	@Column(name = "gio_chay")
 	private String gioChay;
-	
-	@Column(name="gio_ket_thuc")
+
+	@Column(name = "gio_ket_thuc")
 	private String gioKetThuc;
-	
-	@Column(name="id_tuyen_xe")
+
+	@Column(name = "id_tuyen_xe")
 	private int idTuyenXe;
-	
-	@Column(name="sdt_khach_hang")
+
+	@Column(name = "sdt_khach_hang")
 	private String sdtKhachHang;
-	
-	@Column(name="gia_ve")
+
+	@Column(name = "gia_ve")
 	private int giaVe;
-	
+
 	private int point;
-	
-	@Column(name="date")
+
+	@Column(name = "date")
 	private Date date;
-	
-	@Column(name="trang_thai")
+
+	@Column(name = "trang_thai")
 	private int trangThai;
 
 	private String email;
-	
-	private String 	code;
-	
-	@Column(name="diem_xuong")
+
+	private String code;
+
+	@Column(name = "diem_xuong")
 	private String diemXuong;
-	
-	@Column(name="paypal_id")
+
+	@Column(name = "paypal_id")
 	private String paypalId;
 	
+	@Column(name= "vnpay_id")
+	private String vnPayId;
+
 	public Ve() {
-		
+
 	}
 
 	public int getId() {
@@ -159,6 +162,14 @@ public class Ve extends BaseEntity {
 	public void setDiemXuong(String diemXuong) {
 		this.diemXuong = diemXuong;
 	}
-	
+
+	public String getVnPayId() {
+		return vnPayId;
+	}
+
+	public void setVnPayId(String vnPayId) {
+		this.vnPayId = vnPayId;
+	}
+
 	
 }

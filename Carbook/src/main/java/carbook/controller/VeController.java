@@ -30,6 +30,7 @@ import carbook.request.VeRequest;
 import carbook.response.BaseResponse;
 import carbook.response.VeCustomerDataModelResponse;
 import carbook.service.EmailService;
+import carbook.service.EmailService2;
 import carbook.service.GenerateCode;
 import carbook.service.UtilsService;
 
@@ -41,14 +42,14 @@ public class VeController {
 	@Autowired
 	private EmailService emailService; 
 	
+	@Autowired 
+	private EmailService2 emailser;
 	
 	@Autowired
 	private VeDao veDao;
 	
 	@Autowired
 	private PointDao pointDao;
-	
-
 	
 	//Thống kê theo tuyến
 	@RequestMapping(value ="thong-ke-theo-tuyen", method = RequestMethod.GET )
@@ -102,37 +103,43 @@ public class VeController {
 	public ResponseEntity<BaseResponse> create(
 			@RequestBody VeRequest wrapper){
 		BaseResponse response = new BaseResponse();
-		String code = GenerateCode.generateStringToEmail(wrapper.getEmail());
+		String code = GenerateCode.generateStringToEmail(new String(""));
 		String slots =UtilsService.convertListObjectToJsonArrayt(wrapper.getSlot());
 		List<String> slotMail = new ArrayList<String>();
 		 for(int i=0;i<wrapper.getSlot().size();i++) { 
 					  String g="";
 					  if(wrapper.getSlot().get(i).getSoGhe()<=22) {
 						  if(wrapper.getSlot().get(i).getSoGhe()<10){
-							  g= "Giường: A0"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe());
+							  g= "A0"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe());
 						  }
 						  else {
-							  g= "Giường: A"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe());
+							  g= "A"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe());
 						  }
 					  }else {
 						  if(wrapper.getSlot().get(i).getSoGhe()<32) {
-							  g= "Giường: B0"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe()-22);
+							  g= "B0"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe()-22);
 						  }else {
-							  g= "Giường: B"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe()-22);
+							  g= "B"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe()-22);
 						  }
 					  }
-					  g= g+"---"+wrapper.getSlot().get(i).getTen()+"--- Điểm xuống:"+wrapper.getSlot().get(i).getNoiXuong()+" :::: ";
+					 // g= g+"---"+wrapper.getSlot().get(i).getTen()+"--- Điểm xuống:"+wrapper.getSlot().get(i).getNoiXuong()+" :::: ";
 					  slotMail.add(g); 
 		} 
 		String slotMails =slotMail.stream().collect(Collectors.joining(String.valueOf(",")));
 		String tenTuyen = veDao.spGetNameTuyenXe(wrapper.getIdTuyenXe());
 		String ngay=UtilsService.changeDateToString(UtilsService.changeStringToDate(wrapper.getDate()));
-		emailService.sendEmail(wrapper.getEmail(),"MÃ CODE XÁC THỰC","QUÝ KHÁCH VUI LÒNG GIỮ MÃ CODE NÀY ĐỂ XÁC THỰC KHI XUẤT PHÁT TẠI BẾN: "
-				+"Mã Code: "+code+"                                    "
-				+"Tuyến xe: "+tenTuyen
-				+"       ---      "+"Giờ xuất phát: "+wrapper.getGioChay()+"giờ"
-				+"    ---   "+"Thông tin giường nằm: ["+slotMails
-				+"]       ---     "+"Giá tiền :"+wrapper.getGiaVe()+"vnd"+"     ---     "+"Ngày khởi hành: "+ngay);
+		
+		emailser.sendMail(wrapper.getEmail(), code,tenTuyen,wrapper.getGioChay(),slotMails,+wrapper.getGiaVe(),ngay);
+		/*
+		 * emailService.sendEmail(wrapper.getEmail(),"MÃ CODE XÁC THỰC"
+		 * ,"QUÝ KHÁCH VUI LÒNG GIỮ MÃ CODE NÀY ĐỂ XÁC THỰC KHI XUẤT PHÁT TẠI BẾN: "
+		 * +"Mã Code: "+code+"                                    "
+		 * +"Tuyến xe: "+tenTuyen
+		 * +"       ---      "+"Giờ xuất phát: "+wrapper.getGioChay()+"giờ"
+		 * +"    ---   "+"Thông tin giường nằm: ["+slotMails
+		 * +"]       ---     "+"Giá tiền :"+wrapper.getGiaVe()+"vnd"+"     ---     "
+		 * +"Ngày khởi hành: "+ngay);
+		 */
 		Double parde =wrapper.getGiaVe()/4000;
 		
 		int point =parde.intValue();
@@ -167,6 +174,7 @@ public class VeController {
 		wrapper1.setGiaVe(wrapper.getGiaVe());
 		wrapper1.setSlot(wrapper.getSlot());
 		wrapper1.setPaypalId(wrapper.getPaypalId());
+		wrapper1.setVnpayId(wrapper.getVnpayId());
 		wrapper1.setDiemXuong(wrapper.getDiemXuong());
 		String tuyenXe1 = veDao.spGetNameTuyenXe(wrapper.getIdTuyenXe());
 		String code = GenerateCode.generateStringToEmail(wrapper.getEmail());
@@ -176,30 +184,35 @@ public class VeController {
 					  String g="";
 					  if(wrapper.getSlot().get(i).getSoGhe()<=22) {
 						  if(wrapper.getSlot().get(i).getSoGhe()<10){
-							  g= "Giường: A0"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe());
+							  g= "A0"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe());
 						  }
 						  else {
-							  g= "Giường: A"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe());
+							  g= "A"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe());
 						  }
 					  }else {
 						  if(wrapper.getSlot().get(i).getSoGhe()<32) {
-							  g= "Giường: B0"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe()-22);
+							  g= "B0"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe()-22);
 						  }else {
-							  g= "Giường: B"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe()-22);
+							  g= "B"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe()-22);
 						  }
 					  }
-					  g= g+"---"+wrapper.getSlot().get(i).getTen()+"--- Điểm xuống:"+wrapper.getSlot().get(i).getNoiXuong()+" :::: ";
+					  //g= g+"---"+wrapper.getSlot().get(i).getTen()+"--- Điểm xuống:"+wrapper.getSlot().get(i).getNoiXuong()+" :::: ";
 					  slotMail.add(g); 
 		} 
 		String slotMails =slotMail.stream().collect(Collectors.joining(String.valueOf(",")));
 		
 		String ngay=UtilsService.getDateFormatVN(UtilsService.changeStringToDate(wrapper.getDate()));
-		emailService.sendEmail(wrapper.getEmail(),"MÃ CODE XÁC THỰC","QUÝ KHÁCH VUI LÒNG GIỮ MÃ CODE NÀY ĐỂ XÁC THỰC KHI XUẤT PHÁT TẠI BẾN: "
-				+"Mã Code: "+code+"                                    "
-				+ "Tuyến xe: "+tuyenXe1
-				+"       ---      "+"Giờ xuất phát: "+wrapper.getGioChay()+"giờ"
-				+"    ---   "+"Thông tin giường nằm: "+slotMails
-				+"       ---     "+"Giá tiền :"+wrapper.getGiaVe()+"vnd"+"     ---     "+"Ngày khởi hành: "+ngay);
+		emailser.sendMail(wrapper.getEmail(), code,tuyenXe1,wrapper.getGioChay(),slotMails,+wrapper.getGiaVe(),ngay);
+		/*
+		 * emailService.sendEmail(wrapper.getEmail(),"MÃ CODE XÁC THỰC"
+		 * ,"QUÝ KHÁCH VUI LÒNG GIỮ MÃ CODE NÀY ĐỂ XÁC THỰC KHI XUẤT PHÁT TẠI BẾN: "
+		 * +"Mã Code: "+code+"                                    " +
+		 * "Tuyến xe: "+tuyenXe1
+		 * +"       ---      "+"Giờ xuất phát: "+wrapper.getGioChay()+"giờ"
+		 * +"    ---   "+"Thông tin giường nằm: "+slotMails
+		 * +"       ---     "+"Giá tiền :"+wrapper.getGiaVe()+"vnd"+"     ---     "
+		 * +"Ngày khởi hành: "+ngay);
+		 */
 		Double parde =wrapper.getGiaVe()/4000;
 		int point =parde.intValue();
 		Long message1=pointDao.spCreateHistoryPoint(wrapper.getEmail(), point, 0);
@@ -217,25 +230,26 @@ public class VeController {
 		wrapper2.setGiaVe(wrapper.getGiaVe2());
 		wrapper2.setSlot(wrapper.getSlot2());
 		wrapper2.setPaypalId(wrapper.getPaypalId());
+		wrapper2.setVnpayId(wrapper.getVnpayId());
 		wrapper2.setDiemXuong(wrapper.getDiemXuong2());
 		List<String> slotMail2 = new ArrayList<String>();
 		 for(int i=0;i<wrapper.getSlot2().size();i++) { 
 					  String g="";
 					  if(wrapper.getSlot2().get(i).getSoGhe()<=22) {
 						  if(wrapper.getSlot2().get(i).getSoGhe()<10){
-							  g= "Giường: A0"+ String.valueOf(wrapper.getSlot2().get(i).getSoGhe());
+							  g= "A0"+ String.valueOf(wrapper.getSlot2().get(i).getSoGhe());
 						  }
 						  else {
-							  g= "Giường: A"+ String.valueOf(wrapper.getSlot2().get(i).getSoGhe());
+							  g= "A"+ String.valueOf(wrapper.getSlot2().get(i).getSoGhe());
 						  }
 					  }else {
 						  if(wrapper.getSlot2().get(i).getSoGhe()<32) {
-							  g= "Giường: B0"+ String.valueOf(wrapper.getSlot2().get(i).getSoGhe()-22);
+							  g= "B0"+ String.valueOf(wrapper.getSlot2().get(i).getSoGhe()-22);
 						  }else {
-							  g= "Giường: B"+ String.valueOf(wrapper.getSlot2().get(i).getSoGhe()-22);
+							  g= "B"+ String.valueOf(wrapper.getSlot2().get(i).getSoGhe()-22);
 						  }
 					  }
-					  g= g+"---"+wrapper.getSlot2().get(i).getTen()+"--- Điểm xuống:"+wrapper.getSlot2().get(i).getNoiXuong()+" :::: ";
+					//  g= g+"---"+wrapper.getSlot2().get(i).getTen()+"--- Điểm xuống:"+wrapper.getSlot2().get(i).getNoiXuong()+" :::: ";
 					  slotMail2.add(g); 
 		} 
 		String slotMails2 =slotMail2.stream().collect(Collectors.joining(String.valueOf(",")));
@@ -245,12 +259,17 @@ public class VeController {
 		String code2 = GenerateCode.generateStringToEmail(wrapper.getEmail());
 		String slots2 =UtilsService.convertListObjectToJsonArrayt(wrapper.getSlot2());
 		String ngay2=UtilsService.getDateFormatVN(UtilsService.changeStringToDate(wrapper.getDate2()));
-		emailService.sendEmail(wrapper.getEmail(),"MÃ CODE XÁC THỰC","QUÝ KHÁCH VUI LÒNG GIỮ MÃ CODE NÀY ĐỂ XÁC THỰC KHI XUẤT PHÁT TẠI BẾN: "
-				+"Mã Code: "+code2+"                                    "
-				+"Tuyến xe: "+tuyenXe2
-				+"       ---      "+"Giờ xuất phát: "+wrapper2.getGioChay()+"giờ"
-				+"    ---   "+"Thông tin giường nằm: "+slotMails2
-				+"       ---     "+"Giá tiền :"+wrapper2.getGiaVe()+"vnd"+"     ---     "+"Ngày khởi hành: "+ngay2);
+		emailser.sendMail(wrapper.getEmail(), code2,tuyenXe2,wrapper2.getGioChay(),slotMails2,+wrapper2.getGiaVe(),ngay2);
+		/*
+		 * emailService.sendEmail(wrapper.getEmail(),"MÃ CODE XÁC THỰC"
+		 * ,"QUÝ KHÁCH VUI LÒNG GIỮ MÃ CODE NÀY ĐỂ XÁC THỰC KHI XUẤT PHÁT TẠI BẾN: "
+		 * +"Mã Code: "+code2+"                                    "
+		 * +"Tuyến xe: "+tuyenXe2
+		 * +"       ---      "+"Giờ xuất phát: "+wrapper2.getGioChay()+"giờ"
+		 * +"    ---   "+"Thông tin giường nằm: "+slotMails2
+		 * +"       ---     "+"Giá tiền :"+wrapper2.getGiaVe()+"vnd"+"     ---     "
+		 * +"Ngày khởi hành: "+ngay2);
+		 */
 		Double parde2 =wrapper2.getGiaVe()/4000;
 		int point2 =parde2.intValue();
 		Long message2=pointDao.spCreateHistoryPoint(wrapper.getEmail(), point2, 0);
@@ -308,4 +327,6 @@ public class VeController {
 
 		return new ResponseEntity<BaseResponse>(response,HttpStatus.OK);
 	}
+	
+	
 }

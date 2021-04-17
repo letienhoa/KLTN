@@ -1,10 +1,51 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+    <head>
+        <title>Insert title here</title>
+    </head>
+    <body>
+<div>
+    <div style="padding-left:10%;padding-right: 10%; ">
+        <h1 style="padding-top: 10px;padding-left: 10px;padding-right: 10px;height:100px; color:rgb(255, 255, 255) ;background-color: rgb(4, 168, 67);text-align: center;border-top-left-radius: 20px;border-top-right-radius: 20px;margin-bottom: 0px;">QUÝ KHÁCH VUI LÒNG GIỮ MÃ CODE NÀY ĐỂ XÁC THỰC KHI XUẤT PHÁT TẠI BẾN</h1>
+        <div style="display: flex;background-color: rgb(217, 255, 223);padding-top: 50px;padding-bottom: 50px;">
 
-</body>
+            <div style="float: left; margin: auto;margin-right:0px;">
+                <div style="font-size: 20px;color: black;">
+                    <th >Mã code:</th>
+                    <th th:text="${code}"></th>
+                    
+                </div>
+                <div style="font-size: 20px;color: black">
+                    <th >Tuyến xe:</th>
+                    <th th:text="${tenTuyen}"></th>
+                </div>
+                <div style="font-size: 20px;color: black">
+                    <th >Giá tiền:</th>
+                    <th th:text="${giaVe}"></th>
+                    <th style="padding-left: 2px;"> vnđ</th>
+                </div>
+            </div >
+            <div style="float: left; margin: auto;margin-left:40px;">
+                <div style="font-size: 20px;color: black">
+                    <th>Giờ xuất phát:</th>
+                    <th th:text="${gioChay}"></th>
+                    <th style="padding-left: 2px;"> giờ</th>
+                </div>
+                <div style="font-size: 20px;color: black">
+                    <th>Thông tin giường nằm:</th>
+                    <th th:text="${slotMails}"></th>
+                </div>
+                <div style="font-size: 20px;color: black">
+                    <th>Ngày khởi hành:</th>
+                    <th th:text="${ngay}"></th>
+                </div>
+            </div>
+           
+        </div>
+        
+    </div>
+    
+</div>
+
+    </body>
 </html>

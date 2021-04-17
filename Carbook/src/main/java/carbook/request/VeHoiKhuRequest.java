@@ -60,6 +60,8 @@ public class VeHoiKhuRequest {
 	@JsonProperty("paypal_id")
 	private String paypalId;
 	
+	@JsonProperty("vnpay_id")
+	private String vnpayId;
 	public VeHoiKhuRequest() {
 		
 	}
@@ -200,6 +202,14 @@ public class VeHoiKhuRequest {
 
 	public void setSlot2(List<SlotRequest> slot2) {
 		this.slot2 = slot2;
+	}
+
+	public String getVnpayId() {
+		return vnpayId;
+	}
+
+	public void setVnpayId(String vnpayId) {
+		this.vnpayId = vnpayId;
 	}
 	
 	

@@ -16,6 +16,7 @@ import java.util.Properties;
 
 @Service
 public class EmailService2 {
+	
 	 private static final String CONTENT_TYPE_TEXT_HTML = "text/html;charset=\"utf-8\"";
 
 	    @Value("${spring.mail.host}")
@@ -31,7 +32,7 @@ public class EmailService2 {
 	    ThymeleafService thymeleafService;
 
 	    
-	    public void sendMail() {
+	    public void sendMail(String emailReceived,String code,String tenTuyen,int gioChay,String slotMails,Double giaVe,String ngay) {
 	        Properties props = new Properties();
 	        props.put("mail.smtp.host", host);
 	        props.put("mail.smtp.starttls.enable", "true");
@@ -45,13 +46,16 @@ public class EmailService2 {
 	                        return new PasswordAuthentication(email, password);
 	                    }
 	                });
+	        
+	        
 	        Message message = new MimeMessage(session);
 	        try {
-	            message.setRecipients(Message.RecipientType.TO, new InternetAddress[]{new InternetAddress("received_mail@domain.com")});
+	            message.setRecipients(Message.RecipientType.TO, new InternetAddress[]{new InternetAddress(emailReceived)});
 
 	            message.setFrom(new InternetAddress(email));
-	            message.setSubject("Spring-email-with-thymeleaf subject");
-	            message.setContent(thymeleafService.getContent(), CONTENT_TYPE_TEXT_HTML);
+	            message.setSubject("MÃ XÁC THỰC ĐẶT VÉ");
+	            message.setContent(thymeleafService.getContent(code,tenTuyen,gioChay,slotMails,giaVe,ngay), CONTENT_TYPE_TEXT_HTML);
+	            //message.setContent(thymeleafService.getContent2(),CONTENT_TYPE_TEXT_HTML);
 	            Transport.send(message);
 	        } catch (MessagingException e) {
 	            e.printStackTrace();

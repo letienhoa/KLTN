@@ -32,6 +32,9 @@ public class VeRequest {
 	@JsonProperty("paypal_id")
 	private String paypalId;
 	
+	@JsonProperty("vnpay_id")
+	private String vnpayId;
+	
 	@JsonProperty("diem_xuong")
 	private String diemXuong;
 	
@@ -120,6 +123,14 @@ public class VeRequest {
 
 	public List<SlotRequest> getSlot() {
 		return Slot;
+	}
+
+	public String getVnpayId() {
+		return vnpayId;
+	}
+
+	public void setVnpayId(String vnpayId) {
+		this.vnpayId = vnpayId;
 	}
 	
 	

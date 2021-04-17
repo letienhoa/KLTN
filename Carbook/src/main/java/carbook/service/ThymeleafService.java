@@ -46,12 +46,27 @@ public class ThymeleafService {
         templateResolver.setCacheable(false);
         return templateResolver;
     }
-
-    public String getContent() {
+    
+    public String getContent2() {
         final Context context = new Context();
 
         context.setVariable("name", "Messi");
         context.setVariable("project_name", "spring-email-with-thymeleaf Demo");
+
+        return templateEngine.process(TEMPLATE_NAME, context);
+    }
+
+    public String getContent(String code,String tenTuyen,int gioChay,String slotMails,Double giaVe,String ngay) {
+         Context context = new Context();
+
+        context.setVariable("ngay", ngay.toString());
+        context.setVariable("code", code.toString());
+        context.setVariable("tenTuyen", tenTuyen.toString());
+        context.setVariable("gioChay", gioChay);
+        context.setVariable("slotMails", slotMails.toString());
+        context.setVariable("giaVe", giaVe.toString());
+        
+        
 
         return templateEngine.process(TEMPLATE_NAME, context);
     }

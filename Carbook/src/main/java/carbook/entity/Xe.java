@@ -35,7 +35,7 @@ public class Xe {
 	@Column(name="floor")
 	private int floor;
 	
-	@Column(name="row")
+	@Column(name="roww")
 	private int row;
 	
 	@Column(name="srow")

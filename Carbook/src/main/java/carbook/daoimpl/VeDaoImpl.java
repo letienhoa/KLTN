@@ -92,6 +92,8 @@ public class VeDaoImpl extends AbstractDao<Integer, Ve> implements VeDao {
 		procedureCall.registerParameter("slot", String.class, ParameterMode.IN).bindValue(slot);
 		procedureCall.registerParameter("paypalId", String.class, ParameterMode.IN)
 		.bindValue(wrapper.getPaypalId());
+		procedureCall.registerParameter("vnpayId", String.class, ParameterMode.IN)
+		.bindValue(wrapper.getVnpayId());
 		procedureCall.registerParameter("diemXuong", String.class, ParameterMode.IN)
 		.bindValue(wrapper.getDiemXuong());
 		procedureCall.registerParameter("message", Long.class, ParameterMode.OUT);

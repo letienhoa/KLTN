@@ -266,13 +266,5 @@ public class TuyenXeController {
 		
 	}
 	
-	
-	
-	@RequestMapping(value ="/momo-noti", method = RequestMethod.POST )
-	public ResponseEntity<BaseResponse> mommo(){
-		
-		BaseResponse response = new BaseResponse();
-		return new ResponseEntity<BaseResponse>(response,HttpStatus.OK);
-	}
 
 }
