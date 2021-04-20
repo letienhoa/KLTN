@@ -9,13 +9,13 @@ public class VeHoiKhuRequest {
 	//Phần 2
 	
 	@JsonProperty("gio_chay2")
-	private int gioChay2;
+	private Integer gioChay2;
 	
 	@JsonProperty("gio_ket_thuc2")
-	private int gioKetThuc2;
+	private Integer gioKetThuc2;
 	
 	@JsonProperty("id_tuyen_xe2")
-	private int idTuyenXe2;
+	private Integer idTuyenXe2;
 	
 	
 
@@ -29,13 +29,13 @@ public class VeHoiKhuRequest {
 
 	//Phần 1
 	@JsonProperty("gio_chay")
-	private int gioChay;
+	private Integer gioChay;
 	
 	@JsonProperty("gio_ket_thuc")
-	private int gioKetThuc;
+	private Integer gioKetThuc;
 	
 	@JsonProperty("id_tuyen_xe")
-	private int idTuyenXe;
+	private Integer idTuyenXe;
 	
 	@JsonProperty("diem_xuong")
 	private String diemXuong;
@@ -62,31 +62,32 @@ public class VeHoiKhuRequest {
 	
 	@JsonProperty("vnpay_id")
 	private String vnpayId;
+	
 	public VeHoiKhuRequest() {
 		
 	}
 
-	public int getGioChay2() {
+	public Integer getGioChay2() {
 		return gioChay2;
 	}
 
-	public void setGioChay2(int gioChay2) {
+	public void setGioChay2(Integer gioChay2) {
 		this.gioChay2 = gioChay2;
 	}
 
-	public int getGioKetThuc2() {
+	public Integer getGioKetThuc2() {
 		return gioKetThuc2;
 	}
 
-	public void setGioKetThuc2(int gioKetThuc2) {
+	public void setGioKetThuc2(Integer gioKetThuc2) {
 		this.gioKetThuc2 = gioKetThuc2;
 	}
 
-	public int getIdTuyenXe2() {
+	public Integer getIdTuyenXe2() {
 		return idTuyenXe2;
 	}
 
-	public void setIdTuyenXe2(int idTuyenXe2) {
+	public void setIdTuyenXe2(Integer idTuyenXe2) {
 		this.idTuyenXe2 = idTuyenXe2;
 	}
 
@@ -106,27 +107,27 @@ public class VeHoiKhuRequest {
 		this.giaVe2 = giaVe2;
 	}
 
-	public int getGioChay() {
+	public Integer getGioChay() {
 		return gioChay;
 	}
 
-	public void setGioChay(int gioChay) {
+	public void setGioChay(Integer gioChay) {
 		this.gioChay = gioChay;
 	}
 
-	public int getGioKetThuc() {
+	public Integer getGioKetThuc() {
 		return gioKetThuc;
 	}
 
-	public void setGioKetThuc(int gioKetThuc) {
+	public void setGioKetThuc(Integer gioKetThuc) {
 		this.gioKetThuc = gioKetThuc;
 	}
 
-	public int getIdTuyenXe() {
+	public Integer getIdTuyenXe() {
 		return idTuyenXe;
 	}
 
-	public void setIdTuyenXe(int idTuyenXe) {
+	public void setIdTuyenXe(Integer idTuyenXe) {
 		this.idTuyenXe = idTuyenXe;
 	}
 
