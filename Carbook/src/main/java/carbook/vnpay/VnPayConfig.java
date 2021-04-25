@@ -45,7 +45,7 @@ public class VnPayConfig {
 	public static Map<String, List<SlotRequest>> listSlotVnPay = new HashMap<String, List<SlotRequest>>();
 	@Autowired
 	private VeDao veDao;
-	@Autowired 
+	@Autowired
 	private EmailService2 emailser;
 
 	public static String linkURL = "";
@@ -117,10 +117,10 @@ public class VnPayConfig {
 				}
 				slotMail.add(g);
 			}
-			String slotMails =slotMail.stream().collect(Collectors.joining(String.valueOf(",")));
+			String slotMails = slotMail.stream().collect(Collectors.joining(String.valueOf(",")));
 			String tenTuyen = veDao.spGetNameTuyenXe(id_tuyen_xe);
-			String ngay=UtilsService.changeDateToString(UtilsService.changeStringToDate(date));
-			emailser.sendMail(email, code,tenTuyen,gio_chay,slotMails,100000.0,ngay);
+			String ngay = UtilsService.changeDateToString(UtilsService.changeStringToDate(date));
+			emailser.sendMail(email, code, tenTuyen, gio_chay, slotMails, 100000.0, ngay);
 		} else {
 
 		}
@@ -133,7 +133,6 @@ public class VnPayConfig {
 				+ "  cursor: pointer;\r\n" + "  margin-left: 350px;\">" + "OK" + "</button>" + "</a>";
 		String responses = "<div><h1 style=\"margin-left:500px;	\">THANH TOÁN THÀNH CÔNG</h1></div>" + button;
 		return responses;
-
 	}
 
 	@RequestMapping(value = "/get-code", method = RequestMethod.POST)
@@ -185,6 +184,8 @@ public class VnPayConfig {
 					+ wrapper.getDate2().toString();
 		}
 		vnp_TxnRef = vnp_CreateDate;
+		
+		vnp_ReturnUrl = "https://www.google.com/";
 		// Tạo mã map links
 		Map<String, String> vnp_Params = new HashMap<>();
 		vnp_Params.put("vnp_Version", vnp_Version);
@@ -230,6 +231,62 @@ public class VnPayConfig {
 		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/refund", method = RequestMethod.POST)
+	public ResponseEntity<BaseResponse> refundVnpay(
+
+
+	) throws UnsupportedEncodingException {
+		BaseResponse response = new BaseResponse();
+		
+		
+		String vnp_Command = "pay";
+		String vnp_TmnCode = "BZKHFB2U";
+		String vnp_SupChecksumt = "DVDGIHLTSKCAWWBRXVRKMJXTFDJHOQCP";
+		String vnp_TransactionNo="13494893";
+		Double vnp_Amount=200000.0;
+		Date dt = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+		String dateString = formatter.format(dt);
+		String vnp_TransDate = dateString;
+		
+		
+		Map<String, String> vnp_Params = new HashMap<>();
+		vnp_Params.put("vnp_Command", vnp_Command);
+		vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
+		vnp_Params.put("vnp_TransactionNo", vnp_TransactionNo);
+		vnp_Params.put("vnp_TransDate", vnp_TransDate);
+		vnp_Params.put("vnp_Amount", vnp_Amount + "000");
+		List fieldNames = new ArrayList(vnp_Params.keySet());
+		Collections.sort(fieldNames);
+		StringBuilder hashData = new StringBuilder();
+		StringBuilder query = new StringBuilder();
+		Iterator itr = fieldNames.iterator();
+		while (itr.hasNext()) {
+			String fieldName = (String) itr.next();
+			String fieldValue = (String) vnp_Params.get(fieldName);
+			if ((fieldValue != null) && (fieldValue.length() > 0)) {
+				// Build hash data
+				hashData.append(fieldName);
+				hashData.append('=');
+				hashData.append(fieldValue);
+				// Build query
+				query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII.toString()));
+				query.append('=');
+				query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
+				if (itr.hasNext()) {
+					query.append('&');
+					hashData.append('&');
+				}
+			}
+		}
+		String queryUrl = query.toString();
+		String vnp_SecureHash = Sha256(vnp_SupChecksumt + hashData.toString());
+		queryUrl += "&vnp_SecureHashType=SHA256&vnp_SecureHash=" + vnp_SecureHash;
+
+		response.setData(queryUrl);
+		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
+	}
+	
 	public static String Sha256(String message) {
 		String digest = null;
 		try {

@@ -129,7 +129,7 @@ public class VeController {
 		String tenTuyen = veDao.spGetNameTuyenXe(wrapper.getIdTuyenXe());
 		String ngay=UtilsService.changeDateToString(UtilsService.changeStringToDate(wrapper.getDate()));
 		
-		emailser.sendMail(wrapper.getEmail(), code,tenTuyen,wrapper.getGioChay(),slotMails,+wrapper.getGiaVe(),ngay);
+		emailser.sendMailBookingTicket(wrapper.getEmail(), code,tenTuyen,wrapper.getGioChay(),slotMails,+wrapper.getGiaVe(),ngay);
 		/*
 		 * emailService.sendEmail(wrapper.getEmail(),"MÃ CODE XÁC THỰC"
 		 * ,"QUÝ KHÁCH VUI LÒNG GIỮ MÃ CODE NÀY ĐỂ XÁC THỰC KHI XUẤT PHÁT TẠI BẾN: "
@@ -202,7 +202,7 @@ public class VeController {
 		String slotMails =slotMail.stream().collect(Collectors.joining(String.valueOf(",")));
 		
 		String ngay=UtilsService.getDateFormatVN(UtilsService.changeStringToDate(wrapper.getDate()));
-		emailser.sendMail(wrapper.getEmail(), code,tuyenXe1,wrapper.getGioChay(),slotMails,+wrapper.getGiaVe(),ngay);
+		emailser.sendMailBookingTicket(wrapper.getEmail(), code,tuyenXe1,wrapper.getGioChay(),slotMails,+wrapper.getGiaVe(),ngay);
 		/*
 		 * emailService.sendEmail(wrapper.getEmail(),"MÃ CODE XÁC THỰC"
 		 * ,"QUÝ KHÁCH VUI LÒNG GIỮ MÃ CODE NÀY ĐỂ XÁC THỰC KHI XUẤT PHÁT TẠI BẾN: "
@@ -259,7 +259,7 @@ public class VeController {
 		String code2 = GenerateCode.generateStringToEmail(wrapper.getEmail());
 		String slots2 =UtilsService.convertListObjectToJsonArrayt(wrapper.getSlot2());
 		String ngay2=UtilsService.getDateFormatVN(UtilsService.changeStringToDate(wrapper.getDate2()));
-		emailser.sendMail(wrapper.getEmail(), code2,tuyenXe2,wrapper2.getGioChay(),slotMails2,+wrapper2.getGiaVe(),ngay2);
+		emailser.sendMailBookingTicket(wrapper.getEmail(), code2,tuyenXe2,wrapper2.getGioChay(),slotMails2,+wrapper2.getGiaVe(),ngay2);
 		/*
 		 * emailService.sendEmail(wrapper.getEmail(),"MÃ CODE XÁC THỰC"
 		 * ,"QUÝ KHÁCH VUI LÒNG GIỮ MÃ CODE NÀY ĐỂ XÁC THỰC KHI XUẤT PHÁT TẠI BẾN: "

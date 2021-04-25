@@ -17,6 +17,8 @@ public class ThymeleafService {
     private static final String UTF_8 = "UTF-8";
 
     private static final String TEMPLATE_NAME = "MailTemplate";
+    private static final String TEMPLATE_NAME_REFUND = "MailTemplateRefund";
+    private static final String TEMPLATE_NAME_CANCEL = "MailTemplateCancelTuyenXe";
 
     private static TemplateEngine templateEngine;
 
@@ -47,13 +49,27 @@ public class ThymeleafService {
         return templateResolver;
     }
     
-    public String getContent2() {
+    public String getContentForRefund(String tenTuyen,String gioChay,String ngay,String moneyRefundmailString) {
         final Context context = new Context();
 
-        context.setVariable("name", "Messi");
-        context.setVariable("project_name", "spring-email-with-thymeleaf Demo");
+        context.setVariable("tenTuyen", tenTuyen.toString());
+        context.setVariable("gioChay", gioChay.toString());
+        context.setVariable("ngay", ngay.toString());
+        context.setVariable("moneyRefundmailString", moneyRefundmailString);
 
-        return templateEngine.process(TEMPLATE_NAME, context);
+
+        return templateEngine.process(TEMPLATE_NAME_REFUND, context);
+    }
+    
+    public String getContentCancelTuyenXe(String tenTuyen,String gioChay,String ngay,String moneyRefundmailString) {
+        final Context context = new Context();
+
+        context.setVariable("tenTuyen", tenTuyen.toString());
+        context.setVariable("gioChay", gioChay.toString());
+        context.setVariable("ngay", ngay.toString());
+        context.setVariable("moneyRefundmailString", moneyRefundmailString);
+
+        return templateEngine.process(TEMPLATE_NAME_CANCEL, context);
     }
 
     public String getContent(String code,String tenTuyen,int gioChay,String slotMails,Double giaVe,String ngay) {
