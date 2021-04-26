@@ -1,8 +1,5 @@
 package carbook.response;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GiuongMapDataModelResponse {

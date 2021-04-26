@@ -29,7 +29,6 @@ import carbook.request.VeHoiKhuRequest;
 import carbook.request.VeRequest;
 import carbook.response.BaseResponse;
 import carbook.response.VeCustomerDataModelResponse;
-import carbook.service.EmailService;
 import carbook.service.EmailService2;
 import carbook.service.GenerateCode;
 import carbook.service.UtilsService;
@@ -40,96 +39,89 @@ import carbook.service.UtilsService;
 public class VeController {
 
 	@Autowired
-	private EmailService emailService; 
-	
-	@Autowired 
 	private EmailService2 emailser;
-	
+
 	@Autowired
 	private VeDao veDao;
-	
+
 	@Autowired
 	private PointDao pointDao;
-	
-	//Thống kê theo tuyến
-	@RequestMapping(value ="thong-ke-theo-tuyen", method = RequestMethod.GET )
+
+	// Thống kê theo tuyến
+	@RequestMapping(value = "thong-ke-theo-tuyen", method = RequestMethod.GET)
 	public ResponseEntity<BaseResponse> spGetTotalRevenueTuyenXe(
 			@RequestParam(name = "time", required = false) Date time,
-			@RequestParam(name = "selecter", required = false, defaultValue = "7") Integer selecter){
+			@RequestParam(name = "selecter", required = false, defaultValue = "7") Integer selecter) {
 		BaseResponse response = new BaseResponse();
 		List<VeThongKeModelDate> list = veDao.spGetTotalRevenueTuyenXe(time, selecter);
 		response.setData(list);
-		return new ResponseEntity<BaseResponse>(response,HttpStatus.OK);
-	}	
-	
-	//Thống kê doanh thu tổng
-	@RequestMapping(value ="thong-ke-doanh-thu", method = RequestMethod.GET )
+		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
+	}
+
+	// Thống kê doanh thu tổng
+	@RequestMapping(value = "thong-ke-doanh-thu", method = RequestMethod.GET)
 	public ResponseEntity<BaseResponse> spGetTotalRevenueTiket(
 			@RequestParam(name = "time", required = false, defaultValue = "2020/01/01") Date time,
-			@RequestParam(name = "selecter", required = false, defaultValue = "7") Integer selecter){
+			@RequestParam(name = "selecter", required = false, defaultValue = "7") Integer selecter) {
 		BaseResponse response = new BaseResponse();
-		Calendar times= Calendar.getInstance();
+		Calendar times = Calendar.getInstance();
 		times.setTime(time);
-		if(selecter==1)
-		{
-			times.set(Calendar.DAY_OF_MONTH,1);
-		}
-		else if(selecter==2) {
-			 times.set(Calendar.MONTH,1);
-			 times.set(Calendar.DAY_OF_MONTH,1);
-			 times.add(Calendar.MONTH, -1);
+		if (selecter == 1) {
+			times.set(Calendar.DAY_OF_MONTH, 1);
+		} else if (selecter == 2) {
+			times.set(Calendar.MONTH, 1);
+			times.set(Calendar.DAY_OF_MONTH, 1);
+			times.add(Calendar.MONTH, -1);
 		} else {
 			response.setMessageError("yêu cầu lỗi khi nhập mốc chọn, mời chọn lại");
-			return new ResponseEntity<BaseResponse>(response,HttpStatus.OK);
+			return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
 		}
 		List<ThongKeDoanhThuModelData> list = veDao.spGetTotalRevenueTiket(times, selecter);
 		response.setData(list);
-		return new ResponseEntity<BaseResponse>(response,HttpStatus.OK);
+		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
 	}
-	
-	
-	@RequestMapping(value ="thong-ke-theo-khach-hang", method = RequestMethod.GET )
+
+	@RequestMapping(value = "thong-ke-theo-khach-hang", method = RequestMethod.GET)
 	public ResponseEntity<BaseResponse> spGetVeForCustomer(
-			@RequestParam(name = "khach_hang_id", required = false) Integer khachHang){
+			@RequestParam(name = "khach_hang_id", required = false) Integer khachHang) {
 		BaseResponse response = new BaseResponse();
 		List<VeCustomerDataModel> list = veDao.spGetVeForCustomer(khachHang);
-		List<VeCustomerDataModelResponse> listResponse =new VeCustomerDataModelResponse().mapToList(list);
+		List<VeCustomerDataModelResponse> listResponse = new VeCustomerDataModelResponse().mapToList(list);
 		response.setData(listResponse);
-		return new ResponseEntity<BaseResponse>(response,HttpStatus.OK);
+		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
 	}
-	
-	
-	@RequestMapping(value ="/create", method = RequestMethod.POST )
-	public ResponseEntity<BaseResponse> create(
-			@RequestBody VeRequest wrapper){
+
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	public ResponseEntity<BaseResponse> create(@RequestBody VeRequest wrapper) {
 		BaseResponse response = new BaseResponse();
 		String code = GenerateCode.generateStringToEmail(new String(""));
-		String slots =UtilsService.convertListObjectToJsonArrayt(wrapper.getSlot());
+		String slots = UtilsService.convertListObjectToJsonArrayt(wrapper.getSlot());
 		List<String> slotMail = new ArrayList<String>();
-		 for(int i=0;i<wrapper.getSlot().size();i++) { 
-					  String g="";
-					  if(wrapper.getSlot().get(i).getSoGhe()<=22) {
-						  if(wrapper.getSlot().get(i).getSoGhe()<10){
-							  g= "A0"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe());
-						  }
-						  else {
-							  g= "A"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe());
-						  }
-					  }else {
-						  if(wrapper.getSlot().get(i).getSoGhe()<32) {
-							  g= "B0"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe()-22);
-						  }else {
-							  g= "B"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe()-22);
-						  }
-					  }
-					 // g= g+"---"+wrapper.getSlot().get(i).getTen()+"--- Điểm xuống:"+wrapper.getSlot().get(i).getNoiXuong()+" :::: ";
-					  slotMail.add(g); 
-		} 
-		String slotMails =slotMail.stream().collect(Collectors.joining(String.valueOf(",")));
+		for (int i = 0; i < wrapper.getSlot().size(); i++) {
+			String g = "";
+			if (wrapper.getSlot().get(i).getSoGhe() <= 22) {
+				if (wrapper.getSlot().get(i).getSoGhe() < 10) {
+					g = "A0" + String.valueOf(wrapper.getSlot().get(i).getSoGhe());
+				} else {
+					g = "A" + String.valueOf(wrapper.getSlot().get(i).getSoGhe());
+				}
+			} else {
+				if (wrapper.getSlot().get(i).getSoGhe() < 32) {
+					g = "B0" + String.valueOf(wrapper.getSlot().get(i).getSoGhe() - 22);
+				} else {
+					g = "B" + String.valueOf(wrapper.getSlot().get(i).getSoGhe() - 22);
+				}
+			}
+			// g= g+"---"+wrapper.getSlot().get(i).getTen()+"--- Điểm
+			// xuống:"+wrapper.getSlot().get(i).getNoiXuong()+" :::: ";
+			slotMail.add(g);
+		}
+		String slotMails = slotMail.stream().collect(Collectors.joining(String.valueOf(",")));
 		String tenTuyen = veDao.spGetNameTuyenXe(wrapper.getIdTuyenXe());
-		String ngay=UtilsService.changeDateToString(UtilsService.changeStringToDate(wrapper.getDate()));
-		
-		emailser.sendMailBookingTicket(wrapper.getEmail(), code,tenTuyen,wrapper.getGioChay(),slotMails,+wrapper.getGiaVe(),ngay);
+		String ngay = UtilsService.changeDateToString(UtilsService.changeStringToDate(wrapper.getDate()));
+
+		emailser.sendMailBookingTicket(wrapper.getEmail(), code, tenTuyen, wrapper.getGioChay(), slotMails,
+				+wrapper.getGiaVe(), ngay);
 		/*
 		 * emailService.sendEmail(wrapper.getEmail(),"MÃ CODE XÁC THỰC"
 		 * ,"QUÝ KHÁCH VUI LÒNG GIỮ MÃ CODE NÀY ĐỂ XÁC THỰC KHI XUẤT PHÁT TẠI BẾN: "
@@ -140,30 +132,28 @@ public class VeController {
 		 * +"]       ---     "+"Giá tiền :"+wrapper.getGiaVe()+"vnd"+"     ---     "
 		 * +"Ngày khởi hành: "+ngay);
 		 */
-		Double parde =wrapper.getGiaVe()/4000;
-		
-		int point =parde.intValue();
-		Long message1=pointDao.spCreateHistoryPoint(wrapper.getEmail(), point, 0);
+		Double parde = wrapper.getGiaVe() / 4000;
+
+		int point = parde.intValue();
+		Long message1 = pointDao.spCreateHistoryPoint(wrapper.getEmail(), point, 0);
 		System.out.print(message1);
-		Long messageSQL=veDao.create(wrapper, slots,code);
+		Long messageSQL = veDao.create(wrapper, slots, code);
 		System.out.print(messageSQL);
-		if(messageSQL==1||message1==1) {
+		if (messageSQL == 1 || message1 == 1) {
 			response.setMessageError("Lỗi khi thêm dữ liệu dưới database");
 		} else {
 			response.setData(wrapper);
 		}
-		return new ResponseEntity<BaseResponse>(response,HttpStatus.OK);
+		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
 	}
-	
-	
-	@RequestMapping(value ="/create2", method = RequestMethod.POST )
-	public ResponseEntity<BaseResponse> create2(
-			@RequestBody VeHoiKhuRequest wrapper){
+
+	@RequestMapping(value = "/create2", method = RequestMethod.POST)
+	public ResponseEntity<BaseResponse> create2(@RequestBody VeHoiKhuRequest wrapper) {
 		BaseResponse response = new BaseResponse();
 		VeRequest wrapper1 = new VeRequest();
-		
-		//Ve 1
-		
+
+		// Ve 1
+
 		// Đổ dữ liệu cho vé 1
 		wrapper1.setGioChay(wrapper.getGioChay());
 		wrapper1.setGioKetThuc(wrapper.getGioKetThuc());
@@ -178,31 +168,32 @@ public class VeController {
 		wrapper1.setDiemXuong(wrapper.getDiemXuong());
 		String tuyenXe1 = veDao.spGetNameTuyenXe(wrapper.getIdTuyenXe());
 		String code = GenerateCode.generateStringToEmail(wrapper.getEmail());
-		String slots =UtilsService.convertListObjectToJsonArrayt(wrapper.getSlot());
+		String slots = UtilsService.convertListObjectToJsonArrayt(wrapper.getSlot());
 		List<String> slotMail = new ArrayList<String>();
-		 for(int i=0;i<wrapper.getSlot().size();i++) { 
-					  String g="";
-					  if(wrapper.getSlot().get(i).getSoGhe()<=22) {
-						  if(wrapper.getSlot().get(i).getSoGhe()<10){
-							  g= "A0"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe());
-						  }
-						  else {
-							  g= "A"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe());
-						  }
-					  }else {
-						  if(wrapper.getSlot().get(i).getSoGhe()<32) {
-							  g= "B0"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe()-22);
-						  }else {
-							  g= "B"+ String.valueOf(wrapper.getSlot().get(i).getSoGhe()-22);
-						  }
-					  }
-					  //g= g+"---"+wrapper.getSlot().get(i).getTen()+"--- Điểm xuống:"+wrapper.getSlot().get(i).getNoiXuong()+" :::: ";
-					  slotMail.add(g); 
-		} 
-		String slotMails =slotMail.stream().collect(Collectors.joining(String.valueOf(",")));
-		
-		String ngay=UtilsService.getDateFormatVN(UtilsService.changeStringToDate(wrapper.getDate()));
-		emailser.sendMailBookingTicket(wrapper.getEmail(), code,tuyenXe1,wrapper.getGioChay(),slotMails,+wrapper.getGiaVe(),ngay);
+		for (int i = 0; i < wrapper.getSlot().size(); i++) {
+			String g = "";
+			if (wrapper.getSlot().get(i).getSoGhe() <= 22) {
+				if (wrapper.getSlot().get(i).getSoGhe() < 10) {
+					g = "A0" + String.valueOf(wrapper.getSlot().get(i).getSoGhe());
+				} else {
+					g = "A" + String.valueOf(wrapper.getSlot().get(i).getSoGhe());
+				}
+			} else {
+				if (wrapper.getSlot().get(i).getSoGhe() < 32) {
+					g = "B0" + String.valueOf(wrapper.getSlot().get(i).getSoGhe() - 22);
+				} else {
+					g = "B" + String.valueOf(wrapper.getSlot().get(i).getSoGhe() - 22);
+				}
+			}
+			// g= g+"---"+wrapper.getSlot().get(i).getTen()+"--- Điểm
+			// xuống:"+wrapper.getSlot().get(i).getNoiXuong()+" :::: ";
+			slotMail.add(g);
+		}
+		String slotMails = slotMail.stream().collect(Collectors.joining(String.valueOf(",")));
+
+		String ngay = UtilsService.getDateFormatVN(UtilsService.changeStringToDate(wrapper.getDate()));
+		emailser.sendMailBookingTicket(wrapper.getEmail(), code, tuyenXe1, wrapper.getGioChay(), slotMails,
+				+wrapper.getGiaVe(), ngay);
 		/*
 		 * emailService.sendEmail(wrapper.getEmail(),"MÃ CODE XÁC THỰC"
 		 * ,"QUÝ KHÁCH VUI LÒNG GIỮ MÃ CODE NÀY ĐỂ XÁC THỰC KHI XUẤT PHÁT TẠI BẾN: "
@@ -213,12 +204,11 @@ public class VeController {
 		 * +"       ---     "+"Giá tiền :"+wrapper.getGiaVe()+"vnd"+"     ---     "
 		 * +"Ngày khởi hành: "+ngay);
 		 */
-		Double parde =wrapper.getGiaVe()/4000;
-		int point =parde.intValue();
-		Long message1=pointDao.spCreateHistoryPoint(wrapper.getEmail(), point, 0);
-		Long messageSQL=veDao.create(wrapper1, slots,code);
-		
-		
+		Double parde = wrapper.getGiaVe() / 4000;
+		int point = parde.intValue();
+		Long message1 = pointDao.spCreateHistoryPoint(wrapper.getEmail(), point, 0);
+		Long messageSQL = veDao.create(wrapper1, slots, code);
+
 		// Vé 2
 		VeRequest wrapper2 = new VeRequest();
 		wrapper2.setGioChay(wrapper.getGioChay2());
@@ -233,33 +223,33 @@ public class VeController {
 		wrapper2.setVnpayId(wrapper.getVnpayId());
 		wrapper2.setDiemXuong(wrapper.getDiemXuong2());
 		List<String> slotMail2 = new ArrayList<String>();
-		 for(int i=0;i<wrapper.getSlot2().size();i++) { 
-					  String g="";
-					  if(wrapper.getSlot2().get(i).getSoGhe()<=22) {
-						  if(wrapper.getSlot2().get(i).getSoGhe()<10){
-							  g= "A0"+ String.valueOf(wrapper.getSlot2().get(i).getSoGhe());
-						  }
-						  else {
-							  g= "A"+ String.valueOf(wrapper.getSlot2().get(i).getSoGhe());
-						  }
-					  }else {
-						  if(wrapper.getSlot2().get(i).getSoGhe()<32) {
-							  g= "B0"+ String.valueOf(wrapper.getSlot2().get(i).getSoGhe()-22);
-						  }else {
-							  g= "B"+ String.valueOf(wrapper.getSlot2().get(i).getSoGhe()-22);
-						  }
-					  }
-					//  g= g+"---"+wrapper.getSlot2().get(i).getTen()+"--- Điểm xuống:"+wrapper.getSlot2().get(i).getNoiXuong()+" :::: ";
-					  slotMail2.add(g); 
-		} 
-		String slotMails2 =slotMail2.stream().collect(Collectors.joining(String.valueOf(",")));
-		
-		
+		for (int i = 0; i < wrapper.getSlot2().size(); i++) {
+			String g = "";
+			if (wrapper.getSlot2().get(i).getSoGhe() <= 22) {
+				if (wrapper.getSlot2().get(i).getSoGhe() < 10) {
+					g = "A0" + String.valueOf(wrapper.getSlot2().get(i).getSoGhe());
+				} else {
+					g = "A" + String.valueOf(wrapper.getSlot2().get(i).getSoGhe());
+				}
+			} else {
+				if (wrapper.getSlot2().get(i).getSoGhe() < 32) {
+					g = "B0" + String.valueOf(wrapper.getSlot2().get(i).getSoGhe() - 22);
+				} else {
+					g = "B" + String.valueOf(wrapper.getSlot2().get(i).getSoGhe() - 22);
+				}
+			}
+			// g= g+"---"+wrapper.getSlot2().get(i).getTen()+"--- Điểm
+			// xuống:"+wrapper.getSlot2().get(i).getNoiXuong()+" :::: ";
+			slotMail2.add(g);
+		}
+		String slotMails2 = slotMail2.stream().collect(Collectors.joining(String.valueOf(",")));
+
 		String tuyenXe2 = veDao.spGetNameTuyenXe(wrapper.getIdTuyenXe2());
 		String code2 = GenerateCode.generateStringToEmail(wrapper.getEmail());
-		String slots2 =UtilsService.convertListObjectToJsonArrayt(wrapper.getSlot2());
-		String ngay2=UtilsService.getDateFormatVN(UtilsService.changeStringToDate(wrapper.getDate2()));
-		emailser.sendMailBookingTicket(wrapper.getEmail(), code2,tuyenXe2,wrapper2.getGioChay(),slotMails2,+wrapper2.getGiaVe(),ngay2);
+		String slots2 = UtilsService.convertListObjectToJsonArrayt(wrapper.getSlot2());
+		String ngay2 = UtilsService.getDateFormatVN(UtilsService.changeStringToDate(wrapper.getDate2()));
+		emailser.sendMailBookingTicket(wrapper.getEmail(), code2, tuyenXe2, wrapper2.getGioChay(), slotMails2,
+				+wrapper2.getGiaVe(), ngay2);
 		/*
 		 * emailService.sendEmail(wrapper.getEmail(),"MÃ CODE XÁC THỰC"
 		 * ,"QUÝ KHÁCH VUI LÒNG GIỮ MÃ CODE NÀY ĐỂ XÁC THỰC KHI XUẤT PHÁT TẠI BẾN: "
@@ -270,63 +260,58 @@ public class VeController {
 		 * +"       ---     "+"Giá tiền :"+wrapper2.getGiaVe()+"vnd"+"     ---     "
 		 * +"Ngày khởi hành: "+ngay2);
 		 */
-		Double parde2 =wrapper2.getGiaVe()/4000;
-		int point2 =parde2.intValue();
-		Long message2=pointDao.spCreateHistoryPoint(wrapper.getEmail(), point2, 0);
-		Long messageSQL2=veDao.create(wrapper2, slots2,code2);
-		if(messageSQL==1||message1==1||message2==1||messageSQL2==1) {
+		Double parde2 = wrapper2.getGiaVe() / 4000;
+		int point2 = parde2.intValue();
+		Long message2 = pointDao.spCreateHistoryPoint(wrapper.getEmail(), point2, 0);
+		Long messageSQL2 = veDao.create(wrapper2, slots2, code2);
+		if (messageSQL == 1 || message1 == 1 || message2 == 1 || messageSQL2 == 1) {
 			response.setMessageError("Lỗi khi thêm dữ liệu dưới database");
 		} else {
 			response.setMessageError("Đặt vé thành công");
 		}
-		return new ResponseEntity<BaseResponse>(response,HttpStatus.OK);
+		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
 	}
-		
-	
-	@RequestMapping(value ="get-ve-by-code", method = RequestMethod.GET )
+
+	@RequestMapping(value = "get-ve-by-code", method = RequestMethod.GET)
 	public ResponseEntity<BaseResponse> spGetVeForCustomerByCode(
-			@RequestParam(name = "code", required = false) String code){
+			@RequestParam(name = "code", required = false) String code) {
 		BaseResponse response = new BaseResponse();
-		VeForCustomerByCodeDataModelFinal datas= veDao.spGetVeForCustomerByCode(code);
-		if(datas ==null) {
+		VeForCustomerByCodeDataModelFinal datas = veDao.spGetVeForCustomerByCode(code);
+		if (datas == null) {
 			response.setMessageError("Nhập mã tào lao nhe Đỉnh =))))");
-		}else {
+		} else {
 			response.setData(datas);
 		}
 
-		return new ResponseEntity<BaseResponse>(response,HttpStatus.OK);
+		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
 	}
 
-	
-	@RequestMapping(value ="cancel-ticket", method = RequestMethod.POST )
-	public ResponseEntity<BaseResponse> huyVe(
-			@RequestParam(name = "id", required = false) Integer id){
+	@RequestMapping(value = "cancel-ticket", method = RequestMethod.POST)
+	public ResponseEntity<BaseResponse> huyVe(@RequestParam(name = "id", required = false) Integer id) {
 		BaseResponse response = new BaseResponse();
 		Ve ve = veDao.findOne(id);
-		if(ve ==null) {
+		if (ve == null) {
 			response.setMessageError("Không tồn tại vé này!!!");
-		}else {
-			Date now= new Date();
-			Date h= ve.getDate();
+		} else {
+			Date now = new Date();
+			Date h = ve.getDate();
 			Calendar c = Calendar.getInstance();
 			c.setTime(h);
-			int t1 =c.get(Calendar.DAY_OF_MONTH);
+			int t1 = c.get(Calendar.DAY_OF_MONTH);
 			c.setTime(now);
-			int t2= c.get(Calendar.DAY_OF_MONTH);
-			if(ve.getTrangThai()==3||ve.getTrangThai()==1||t1-t2<2)
-			{
+			int t2 = c.get(Calendar.DAY_OF_MONTH);
+			if (ve.getTrangThai() == 3 || ve.getTrangThai() == 1 || t1 - t2 < 2) {
 				response.setMessageError("Không thể hủy vé này!!!");
-			}else {
+			} else {
 				ve.setTrangThai(3);
 				veDao.update(ve);
 				veDao.spDeleteGiuong(id);
 				response.setData(ve);
 			}
-		
+
 		}
 
-		return new ResponseEntity<BaseResponse>(response,HttpStatus.OK);
+		return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
 	}
-	
-	
+
 }
