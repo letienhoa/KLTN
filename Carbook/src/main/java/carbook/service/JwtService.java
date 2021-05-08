@@ -92,17 +92,11 @@ public String getUsernameFromToken(String token) {
     if (token == null || token.trim().length() == 0) {
       return false;
     }
-    for(int i=0; i<JwtService.listToken.size();i++) {
-		if(JwtService.listToken.get(i).equals(token))
-		{
-		check=1;
-		break;
-		}
-	}
-    if(check==0)
-    {
-    	return false;
-    }
+	/*
+	 * for(int i=0; i<JwtService.listToken.size();i++) {
+	 * if(JwtService.listToken.get(i).equals(token)) { check=1; break; } }
+	 * if(check==0) { return false; }
+	 */
     String username = getUsernameFromToken(token);
     if (username == null || username.isEmpty()) {
       return false;
