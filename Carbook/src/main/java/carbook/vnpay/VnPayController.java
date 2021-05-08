@@ -196,7 +196,7 @@ public class VnPayController {
 		BaseResponse response = new BaseResponse();
 		VnPayController.linkURL = link;
 		System.out.print(linkURL);
-		String vnp_Version = "2";
+		String vnp_Version = "2"; 	
 		String vnp_Command = "pay";
 		String vnp_TmnCode = "BZKHFB2U";
 		String vnp_BankCode = "NCB";
@@ -205,7 +205,7 @@ public class VnPayController {
 		String vnp_Locale = "vn";
 		String vnp_TxnRef = "HoaLeTiesss3";
 		String vnp_SupChecksumt = "DVDGIHLTSKCAWWBRXVRKMJXTFDJHOQCP";
-		Double vnp_Amount = wrapper.getGiaVe() + wrapper.getGiaVe2();
+		Double vnp_Amount = wrapper.getGiaVe();
 		Date dt = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 		String dateString = formatter.format(dt);
@@ -216,23 +216,38 @@ public class VnPayController {
 		String vnp_ReturnUrl = "";
 		// Nếu là vé 2 chiều
 		if (wrapper.getGioChay2() != null) {
+			vnp_Amount = wrapper.getGiaVe() + wrapper.getGiaVe2();
 			codeSlot2 = formatter.format(new Date());
 			listSlotVnPay.put(codeSlot2, wrapper.getSlot2());
+		} else {
+			
 		}
+		vnp_Amount*=100;
 		vnp_ReturnUrl = "http://localhost:8082/api/payVn/submit?" + "gio_chay=" + wrapper.getGioChay().toString()
 				+ "&gio_ket_thuc=" + wrapper.getGioKetThuc().toString() + "&sdt=" + wrapper.getSdt().toString()
 				+ "&email=" + wrapper.getEmail().toString() + "&date=" + wrapper.getDate().toString() + "&id_tuyen_xe"
-				+ wrapper.getIdTuyenXe() + "&code_slot1" + codeSlot1 + "&code_slot2" + codeSlot2 + "gio_chay2="
-				+ wrapper.getGioChay2().toString() + "&gio_ket_thuc2=" + wrapper.getGioKetThuc2().toString()
-				+ "&id_tuyen_xe2" + wrapper.getIdTuyenXe2() + "&date2=" + wrapper.getDate2().toString() + "gia_ve="
-				+ wrapper.getGiaVe() + "gia_ve2=" + wrapper.getGiaVe2();
+				+ wrapper.getIdTuyenXe() + "&code_slot1" + codeSlot1 + "&code_slot2" + codeSlot2.toString()
+				+ "gio_chay2=" + wrapper.getGioChay2() + "&gio_ket_thuc2="
+				+ wrapper.getGioKetThuc2() + "&id_tuyen_xe2" + wrapper.getIdTuyenXe2() + "&date2="
+				+ wrapper.getDate2() + "gia_ve=" + wrapper.getGiaVe() + "gia_ve2="
+				+ wrapper.getGiaVe2();
 		vnp_TxnRef = vnp_CreateDate;
+		double vnp_Amountd = vnp_Amount;
+		Integer vnp_Amounti = (int)vnp_Amountd;
+		vnp_ReturnUrl = "http://localhost:8082/api/payVn/submit?" + "gio_chay=" + wrapper.getGioChay().toString()
+				+ "&gio_ket_thuc=" + wrapper.getGioKetThuc().toString() + "&sdt=" + wrapper.getSdt().toString()
+				+ "&email=" + wrapper.getEmail().toString() + "&date=" + wrapper.getDate().toString() + "&id_tuyen_xe"
+				+ wrapper.getIdTuyenXe() + "&code_slot1" + codeSlot1 + "&code_slot2" + codeSlot2.toString()
+				+ "gio_chay2=" + wrapper.getGioChay2() + "&gio_ket_thuc2="
+				+ wrapper.getGioKetThuc2();
+		//vnp_ReturnUrl = "http://localhost:8082/api/payVn/submit?";
 		// Tạo mã map links
+		
 		Map<String, String> vnp_Params = new HashMap<>();
 		vnp_Params.put("vnp_Version", vnp_Version);
 		vnp_Params.put("vnp_Command", vnp_Command);
 		vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
-		vnp_Params.put("vnp_Amount", vnp_Amount + "00");
+		vnp_Params.put("vnp_Amount", vnp_Amounti.toString());
 		vnp_Params.put("vnp_CurrCode", vnp_CurrCode);
 		vnp_Params.put("vnp_BankCode", vnp_BankCode);
 		vnp_Params.put("vnp_TxnRef", vnp_TxnRef);

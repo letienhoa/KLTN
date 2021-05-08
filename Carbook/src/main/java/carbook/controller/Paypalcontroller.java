@@ -125,17 +125,16 @@ public class Paypalcontroller {
 
 			Sale sale = new Sale();
 			sale.setId(ve.getPaypalId().toString());
-
-			try {
-				// String apiContext= null;
-				// Refund sale
-				sale.refund(apiContext, refund);
-
-			} catch (PayPalRESTException e) {
-				System.err.println(e.getDetails());
-				response.setMessageError("Fail rồi bạn ơi");
-				return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
+			if (ve.getPaypalId() != null) {
+				try {
+					sale.refund(apiContext, refund);
+				} catch (PayPalRESTException e) {
+					System.err.println(e.getDetails());
+					response.setMessageError("Fail rồi bạn ơi");
+					return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
+				}
 			}
+
 			ve.setTrangThai(3);
 			veDao.update(ve);
 			veDao.spDeleteGiuong(ve.getId());
@@ -182,12 +181,12 @@ public class Paypalcontroller {
 				refund.setAmount(amount);
 				Sale sale = new Sale();
 				sale.setId(x.getPaypalId().toString());
-
-				try {
-					sale.refund(apiContext, refund);
-				} catch (PayPalRESTException e) {
-					System.err.println(e.getDetails());
-
+				if (x.getPaypalId() != null) {
+					try {
+						sale.refund(apiContext, refund);
+					} catch (PayPalRESTException e) {
+						System.err.println(e.getDetails());
+					}
 				}
 				x.setTrangThai(3);
 				veDao.update(x);

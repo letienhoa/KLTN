@@ -22,6 +22,7 @@ import carbook.request.BenRequest;
 import carbook.response.BaseResponse;
 import carbook.response.BenResponse;
 import carbook.response.BenToiResponse;
+import carbook.sms.SMSService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -113,6 +114,9 @@ public class BenController {
 		List<Ben> data = benDao.findAll();
 		List<BenResponse> dataResponse = new BenResponse().mapToList(data);
 		BaseResponse response = new BaseResponse();
+		
+//		SMSService sms = new SMSService();
+	//	sms.send();
 		
 		response.setData(dataResponse);
         return new ResponseEntity<BaseResponse>(response,HttpStatus.OK);

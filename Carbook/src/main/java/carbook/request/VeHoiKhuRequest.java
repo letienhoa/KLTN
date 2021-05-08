@@ -8,6 +8,7 @@ public class VeHoiKhuRequest {
 
 	//Phần 2
 	
+	
 	@JsonProperty("gio_chay2")
 	private Integer gioChay2;
 	
