@@ -156,7 +156,7 @@ public class VeController {
 
 		// Đổ dữ liệu cho vé 1
 		wrapper1.setGioChay(wrapper.getGioChay());
-		wrapper1.setGioKetThuc(wrapper.getGioKetThuc());
+		wrapper1.setGioKetThuc(0);
 		wrapper1.setIdTuyenXe(wrapper.getIdTuyenXe());
 		wrapper1.setSdt(wrapper.getSdt());
 		wrapper1.setEmail(wrapper.getEmail());
@@ -212,7 +212,7 @@ public class VeController {
 		// Vé 2
 		VeRequest wrapper2 = new VeRequest();
 		wrapper2.setGioChay(wrapper.getGioChay2());
-		wrapper2.setGioKetThuc(wrapper.getGioKetThuc2());
+		wrapper2.setGioKetThuc(0);
 		wrapper2.setIdTuyenXe(wrapper.getIdTuyenXe2());
 		wrapper2.setSdt(wrapper.getSdt());
 		wrapper2.setEmail(wrapper.getEmail());
