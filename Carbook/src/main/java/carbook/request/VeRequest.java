@@ -9,13 +9,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class VeRequest {
 
 	@JsonProperty("gio_chay")
-	private int gioChay;
+	private Integer gioChay;
 	
 	@JsonProperty("gio_ket_thuc")
-	private int gioKetThuc;
+	private Integer gioKetThuc;
 	
 	@JsonProperty("id_tuyen_xe")
-	private int idTuyenXe;
+	private Integer idTuyenXe;
 	
 
 	private String sdt;
@@ -45,27 +45,27 @@ public class VeRequest {
 		
 	}
 
-	public int getGioChay() {
+	public Integer getGioChay() {
 		return gioChay;
 	}
 
-	public void setGioChay(int gioChay) {
+	public void setGioChay(Integer gioChay) {
 		this.gioChay = gioChay;
 	}
 
-	public int getGioKetThuc() {
+	public Integer getGioKetThuc() {
 		return gioKetThuc;
 	}
 
-	public void setGioKetThuc(int gioKetThuc) {
+	public void setGioKetThuc(Integer gioKetThuc) {
 		this.gioKetThuc = gioKetThuc;
 	}
 
-	public int getIdTuyenXe() {
+	public Integer getIdTuyenXe() {
 		return idTuyenXe;
 	}
 
-	public void setIdTuyenXe(int idTuyenXe) {
+	public void setIdTuyenXe(Integer idTuyenXe) {
 		this.idTuyenXe = idTuyenXe;
 	}
 
