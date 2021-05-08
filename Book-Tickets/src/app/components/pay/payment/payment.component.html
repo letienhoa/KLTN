@@ -1,0 +1,87 @@
+<app-header ></app-header>
+<section>
+    <div class="container">
+        <ul class="progressbar">
+            <li class="active"></li>
+            <li class="active"></li>
+            <li class="active"></li>
+            <li class="active-next">Thanh Toán</li>
+        </ul>
+        <div class="clear"></div>
+        <div class="pay">
+            <h2 class="title">Thông tin mua vé</h2>
+            <div>
+                <h3>Thông tin khác hàng mua vé</h3>
+                <div class="customer">
+                    <div class="customer-infor">
+                        <label for=""> <span>Họ và tên: </span> {{inforCustomer.name}}</label>
+                    </div>
+                    <div class="customer-infor">
+                        <label for=""> <span>Số điện thoại: </span> <span class="notifycation">{{inforCustomer.phone}}</span></label>
+                    </div>
+                    <div class="customer-infor" style="width: 35%;">
+                        <label for=""> <span>Email: </span> {{inforCustomer.email}}</label>
+                    </div>
+                </div>
+               <div class="customer">
+                    <label for="" style="padding: 0% 3.2% 3%;"> <span>Nơi ở: </span> {{inforCustomer.district}}, Tỉnh {{inforCustomer.city}}</label>
+               </div>
+            </div>
+            <div >
+                <h3>Thông tin vé</h3>
+                <div class="customer">
+                    <div class="customer-infor">
+                        <label for=""> <span>Tuyến: </span> <span class="notifycation">{{inforRoute.departure.ben_toi}} ⇒ {{inforRoute.destination.ben_toi}}</span> </label>
+                    </div>
+                    <div class="customer-infor">
+                        <label for=""> <span>Số lượng ghế: </span> {{inforSeat.seats.length}}</label>
+                    </div>
+                    <div class="customer-infor" style="width: 35%;">
+                        <label for=""> <span>Số ghế: </span> 
+                            <ng-container *ngFor="let seat of inforSeat.seats; let i = index">
+                                <span class="notifycation">{{seat.name}} </span>
+                                <span class="notifycation" *ngIf="i<inforSeat.seats.length-1">,</span>
+                            </ng-container>
+                        </label>
+                    </div>
+                </div>
+                <div class="customer">
+                    <div class="customer-infor">
+                        <label for=""> <span>Thời gian: </span> <span class="notifycation">{{inforSeat.time}}:00 h {{inforRoute.daygo}}</span>  </label>
+                    </div>
+                    <div class="customer-infor">
+                        <label for=""> <span>Điểm lên xe: </span>Bến xe {{inforRoute.departure.ben_toi}}</label>
+                    </div>
+                    <div class="customer-infor" style="width: 35%;">
+                        <label for=""> <span>Nơi xuống: </span>Bến xe {{inforRoute.destination.ben_toi}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="total">
+                <div style="float: right; padding-right: 3%;">
+                    <p style="color: #00613d;">Tổng Tiền : <span class="notifycation">{{inforSeat.totalMoney}} <sup data-v-6f125f51="">₫</sup></span></p>
+                </div>
+            </div>
+        </div>
+        <section id="type-pay"> 
+            <div class="pay-item" (click)="onSelectTypePay(0)">
+                <img src="./assets/paypall.svg" alt="paypall">
+            </div>
+            <div class="pay-item" (click)="onSelectTypePay(1)">
+                <img src="./assets/vnPay.png" alt="vnPay">
+            </div>
+        </section>
+        <div class="back">
+            <button class="button" [routerLink]="['/infor-customer']"><i class="fas fa-chevron-left"></i> Quay Lại</button>
+        </div>
+        <div class="cont">
+            <button class="button" (click)="onContinue()">Thanh toán<i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+    <div id="myModalPay" class="modal">
+        <div style="background:white; margin: 300px auto; padding: 2%; width: 30%; border-radius: 10px;">
+            <app-paypall *ngIf="type==0"></app-paypall>
+            <app-vnpay *ngIf="type==1"></app-vnpay>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,88 @@
+.statistical{
+    margin: 0.2rem;
+    width: 99%;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 10px 15px 20px rgba(0, 0, 0, .1);
+}
+
+.statistical-title{
+    padding: 1rem;
+}
+
+.select-type{
+    display: flex;
+    justify-content: center;
+}
+
+.search-month, .search-year{
+    padding-bottom: 20px;
+}
+
+.search-month{
+    margin-right: 20px;
+}
+
+select{
+    outline: none;
+}
+
+#month{
+    width: 50px;
+}
+
+#year{
+    width: 100px;
+}
+
+#part{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.statistical-part{
+    margin: 0.5rem 0px;
+    width: 49%;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 10px 15px 20px rgba(0, 0, 0, .1);
+}
+
+.warring{
+    color: #ef5222;
+}
+
+.table-station{
+    margin: 1rem auto;
+    width: 90%;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 10px 15px 20px rgba(0, 0, 0, .1);
+}
+
+table{
+    width: 100%;
+    background: #f6f6f6;
+    margin: 0px auto;
+    box-shadow: 10px 15px 20px rgba(0, 0, 0, .1);
+    border-radius: 20px;
+    border-collapse:collapse;
+}
+
+table tr,th,td{
+    text-align: center;
+    padding: 0.5rem;
+}
+
+table th{
+    background: #00613d;
+    color: white;
+}
+
+#table-top-left{
+    border-top-left-radius:20px;
+}
+#table-top-right{
+    border-top-right-radius:20px;
+}

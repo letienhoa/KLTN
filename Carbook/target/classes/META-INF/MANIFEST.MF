@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Implementation-Title: Carbook
 Implementation-Version: 1.0
-Built-By: Hoa Le
+Built-By: user
 Implementation-Vendor-Id: com.carbook
 Build-Jdk: 1.8.0_261
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo

@@ -1,0 +1,83 @@
+.container{
+    margin: auto;
+    width: 60%;
+    margin-top: 10px;
+    background: #ffffff;
+    border-radius: 10px;
+}
+
+.container img{
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+}
+
+.container .transhipment{
+    box-shadow: 10px 15px 20px rgba(0, 0, 0, .1);
+    margin: 10px auto;
+    border-radius: 10px;
+}
+
+.container .transhipment .title{
+    font-size: 20px;
+    background: #F7F7F7;
+    font-weight: bold;
+    color: #F15A24;
+    padding: 10px;
+}
+
+.container .transhipment .title span{
+    font-size: 18px;
+    color:#637280;
+}
+
+.container .transhipment .transhipment-content{
+    font-size: 18px;
+    background: #D9EDF7;
+    text-align: center;
+    padding: 30px;
+    color: #31708F;
+}
+
+.container .transhipment .content-left{
+    width: 100%;
+    background: #d9edf7;
+    text-align: center;
+    font-size: 18px;
+    padding: 20px 0px;
+}
+
+.container .transhipment p{
+    text-align: center;
+    color: #4f5152;
+    font-weight: bold;
+}
+
+
+.container .transhipment .content-right{
+    width: 100%;
+    background: #ffffff;
+    text-align: center;
+    font-size: 18px;
+    padding: 20px 0px;
+    height: 250px;
+}
+
+.container .continue{
+    float: right;
+   
+}
+
+.container .continue .button{
+    width: 250px;
+    padding: 20px;
+    font-size: 16px;
+    border: 1px solid   #e7e4e4;
+    background: #F15A24;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+}
+.container .continue .button:hover{
+    cursor: pointer;
+}

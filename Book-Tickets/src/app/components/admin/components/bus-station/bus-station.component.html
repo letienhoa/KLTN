@@ -1,0 +1,78 @@
+<section>
+   <div class="bus-station">
+        <h2 class="title station-title">Biểu đồ thể hiện số lượng vé đến của bến</h2>
+        <div class="select-year">
+            <label for="">Chọn năm: </label>
+            <select>
+                <option>2021</option>
+                <option>2020</option>
+                <option>2019</option>
+                <option>2018</option>
+              </select>
+        </div>
+        <div>
+            <canvas baseChart 
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            [colors]="doughnutChartColors"
+            >
+          </canvas>
+        </div>
+   </div>
+   <div class="table-station">
+        <h2 class="title station-title">Danh sách bến xe</h2>
+        <table>
+            <tr>
+              <th id="table-top-left">STT</th>
+              <th>Tên Bến</th>
+              <th>Địa chỉ</th>
+              <th></th>
+              <th id="table-top-right"></th>
+            </tr>
+            <tr>
+              <td>Jill</td>
+              <td>Smith</td>
+              <td>50</td>
+              <td style="color: #00613d;"><i class="fas fa-edit"></i></td> 
+              <td style="color: #ef5222;"><i class="fas fa-user-times"></i></td> 
+
+            </tr>
+            <tr>
+              <td>Eve</td>
+              <td>Jackson</td>
+              <td>94</td>
+              <td style="color: #00613d;"><i class="fas fa-edit"></i></td> 
+              <td style="color: #ef5222;"><i class="fas fa-user-times"></i></td> 
+            </tr>
+        </table>
+        
+   
+   </div>
+   <div class="form">
+        <h2 class="title station-title">Thêm bến xe</h2>
+        <form> 
+            <div class="item">
+                <label for="">Tên bến:</label>
+                <input type="text">
+            </div>
+            <div class="item">
+                <label for="">Địa chỉ:</label>
+                <input type="text">
+            </div>
+        </form>
+        <form> 
+            <div class="item">
+                <label for="">Tên bến:</label>
+                <input type="text">
+            </div>
+            <div class="item">
+                <label for="">Địa chỉ:</label>
+                <input type="text">
+            </div>
+        </form>
+   </div>
+</section>

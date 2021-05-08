@@ -1,0 +1,164 @@
+<section class="admin-container">
+    <div class="admin-home">
+        <div class="home-item"> 
+            <div class="home-item-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="home-item-infor">
+                <p>Số lượng tài khoản</p>
+                <label>54 tài khoản</label>
+            </div>
+        </div>
+        <div class="home-item" style="color:#00613d;">
+            <div class="home-item-icon">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="home-item-infor">
+                <p>Số lượng bến xe</p>
+                <label>54 bến xe</label>
+            </div>
+        </div>
+        <div class="home-item">
+            <div class="home-item-icon">
+                <i class="far fa-file-alt"></i>
+            </div>
+            <div class="home-item-infor">
+                <p>Số lượng tuyến xe</p>
+                <label>54 tuyến xe</label>
+            </div>
+        </div>
+        <div class="home-item" style="color:#00613d;">
+            <div class="home-item-icon">
+                <i class="fas fa-car"></i>
+            </div>
+            <div class="home-item-infor">
+                <p>Số lượng xe</p>
+                <label>54 xe</label>
+            </div>
+        </div>
+    </div>
+    <div class="admin-home" style="margin-top: 1rem;">
+        <div class="graph">
+            <div class="graph-infor">
+                <canvas baseChart 
+                    [data]="pieChartData" 
+                    [labels]="pieChartLabels"
+                    [chartType]="pieChartType"
+                    [options]="pieChartOptions"
+                    [plugins]="pieChartPlugins"
+                    [legend]="pieChartLegend">
+                </canvas>
+               
+            </div>
+        </div>
+        <div class="graph" style="margin-right: 1%;">
+            <div class="graph-infor" >
+                <canvas baseChart 
+                    [data]="pieChartData" 
+                    [labels]="pieChartLabels"
+                    [chartType]="pieChartType"
+                    [options]="pieChartOptions"
+                    [plugins]="pieChartPlugins"
+                    [legend]="pieChartLegend"
+                    [title]="pieChartOptions.title"
+                   
+                >
+                </canvas>
+            </div>
+        </div>
+    </div>
+    <div class="admin-home" style="margin-top: 1rem;">
+        <div class="table">
+            <div class="table-infor">
+                <h2 class="table-title" style="color: #ef5222;">Danh sách bến xe</h2>
+                <div>
+                    <table style="width:80%;">
+                        <tr>
+                          <th style="border-top-left-radius: 20px;">STT</th>
+                          <th>Tên Bến</th>
+                          <th>Địa Chỉ</th>
+                          <th style="border-top-right-radius: 20px;">Chi Tiết</th>
+                        </tr>
+                        <tr>
+                          <td>Jill</td>
+                          <td>Smith</td>
+                          <td>50</td>
+                          <td><i class="fas fa-info-circle"></i></td>
+                        </tr>
+                        <tr>
+                          <td>Eve</td>
+                          <td>Jackson</td>
+                          <td>94</td>
+                          <td><i class="fas fa-info-circle"></i></td>
+                        </tr>
+                      </table>
+                </div>
+            </div>
+        </div>
+        <div class="table" style="margin-right: 1%;">
+            <div class="table-infor">
+                <h2 class="table-title" style="color: #ef5222;">Danh sách xe</h2>
+                <div>
+                    <table style="width:80%;">
+                        <tr>
+                          <th style="border-top-left-radius: 20px;">STT</th>
+                          <th>Tuyến xe</th>
+                          <th>Số lượng xe</th>
+                          <th style="border-top-right-radius: 20px;">Chi Tiết</th>
+                        </tr>
+                        <tr>
+                          <td>Jill</td>
+                          <td>Smith</td>
+                          <td>50</td>
+                          <td><i class="fas fa-info-circle"></i></td>
+                        </tr>
+                        <tr>
+                          <td>Eve</td>
+                          <td>Jackson</td>
+                          <td>94</td>
+                          <td><i class="fas fa-info-circle"></i></td>
+                        </tr>
+                      </table>
+                </div>
+            </div>
+        </div>      
+    </div>
+    <div class="admin-home" style="margin-top: 1rem; ">
+        <div class="chart-wrapper" style="height: 400px; width: 49%; background: white; box-shadow: 10px 15px 20px rgba(0, 0, 0, .1); border-radius: 20px;">
+            <canvas baseChart 
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            [colors]="doughnutChartColors"
+            >
+          </canvas>
+        </div>
+        <div class="table" style="margin-right: 1%;">
+            <div class="table-infor">
+                <h2 class="table-title" style="color: #ef5222;">Danh Tuyến xe</h2>
+                <div>
+                    <table style="width:80%;">
+                        <tr>
+                          <th style="border-top-left-radius: 20px;">STT</th>
+                          <th>Tuyến xe</th>
+                          <th style="border-top-right-radius: 20px;">Chi Tiết</th>
+                        </tr>
+                        <tr>
+                          <td>Jill</td>
+                          <td>Smith</td>
+                          <td><i class="fas fa-info-circle"></i></td>
+                        </tr>
+                        <tr>
+                          <td>Eve</td>
+                          <td>Jackson</td>
+                          <td><i class="fas fa-info-circle"></i></td>
+                        </tr>
+                      </table>
+                </div>
+            </div>
+        </div>     
+    </div>
+</section>

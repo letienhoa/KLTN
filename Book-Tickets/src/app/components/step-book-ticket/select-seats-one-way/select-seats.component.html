@@ -1,0 +1,118 @@
+<app-header [index]=-1></app-header>
+<section class="container">
+    <ul class="progressbar">
+        <li class="active"></li>
+        <li class="active-next">Chọn Ghế</li>
+        <li></li>
+        <li></li>
+    </ul>
+
+    <div style="display: flex; justify-content: space-between; clear: both;">
+        <div class="container-left">
+            <div class="content-address">
+                <div class="title">
+                    <h2>Ngày {{step1.daygo}}</h2>
+                    <p style="color: #00613d; font-size: 18px;">{{step1.departure.ben_toi}} ⇒ {{step1.destination.ben_toi}}</p>    
+                </div>
+                <div class="select-station">
+                    <p>Chọn Bến Xe</p>
+                    <label>{{step1.departure.ben_toi}} ⇒ {{step1.destination.ben_toi}}</label><span>{{busRouter.gia_ca}} đ</span>
+                </div>
+                <div class="clear"></div>
+                <div class="select-station">
+                    <p>Giờ Khởi Hành</p>
+                    <select name="time" (change)="onChangeTime($event.target)">
+                        <optGroup label="Sáng">
+                            <option *ngFor='let i of listAM' 
+                            value="{{i.giochay}}" >{{i.giochay}}:00 <span>(Giường)</span></option>
+                        </optGroup>
+                        <optGroup label="Chiều">
+                            <option *ngFor='let i of listNoon' 
+                            value="{{i.giochay}}">{{i.giochay}}:00 <span>(Giường)</span></option>
+                        </optGroup>
+                        <optGroup label="Tối">
+                            <option *ngFor='let i of listPM' 
+                            value="{{i.giochay}}">{{i.giochay}}:00 <span>(Giường)</span></option>
+                        </optGroup>
+                    </select>
+                </div>
+                <div class="select-station">
+                    <p>Điểm Lên Xe</p>
+                    <select style="margin-bottom: 20px;" name="point" >
+                        <option>Bến xe {{step1.departure.ben_toi}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="container-right">
+            <div class="title">
+                <h2>Sơ Đồ Ghế</h2>
+             </div>
+             <div style="display: flex; justify-content: space-between; width: 100%;">
+                <div  class="floor-1" style="padding-bottom: 10px;">
+                    <h2 *ngIf="floors==2">Tang 1</h2>
+                    <h2 *ngIf="floors==1">Ghe</h2>
+
+                    <table style="width: 100%;">
+                        <ng-container *ngFor="let i of listSeatsFloor1; index as row;">
+                            <tr>
+                                <ng-container *ngFor="let j of i.seat; index as local">
+                                    <td *ngIf="j == 0"></td>
+                                    <td *ngIf="j.stt != 'undefined' && j.trang_thai == 1" id="seat" class="disable seat"><button  (click)="onBook(j)">{{j.name}}</button></td>
+                                    <td *ngIf="j.stt != 'undefined' && j.trang_thai == 0" id="seat" class="activety seat"><button  (click)="onBook(j)">{{j.name}}</button></td>
+                                </ng-container>
+                            </tr>
+                        </ng-container>
+                    </table>
+                </div>
+                <div *ngIf="floors==2" class="floor-2" style="padding-bottom: 10px;">
+                    <h2>Tang 2</h2>
+                    <table style="width: 100%;">
+                        <ng-container *ngFor="let i of listSeatsFloor2; index as row;">
+                            <tr>
+                                <ng-container *ngFor="let j of i.seat;index as local;">
+                                    <td *ngIf="j.stt != 'undefined' && j.trang_thai == 1" id="seat" class="disable seat"><button  (click)="onBook(j)">{{j.name}}</button></td>
+                                    <td *ngIf="j.stt != 'undefined' && j.trang_thai == 0" id="seat" class="activety seat"><button  (click)="onBook(j)">{{j.name}}</button></td>
+                                    <td *ngIf="j==0"></td>
+                                </ng-container>
+                            </tr>
+                        </ng-container>
+                    </table>
+                </div> 
+             </div>
+            
+             <div style="clear: both;"></div>
+             <div class="note">
+                 <div class="note-content">
+                    <label for=""><input type="text" disabled style="background: #eff9ff; border: 1px solid  rgb(65, 62, 62);"> Trống</label>
+                 </div>
+                 <div class="note-content">
+                     <label for=""><input type="text" disabled style="background:  #e05c30; border: 1px solid  rgb(65, 62, 62);"> Đang chọn</label>
+                 </div>
+                 <div class="note-content">
+                     <label for=""><input type="text" disabled style="background: #696b6d; border: 1px solid  rgb(65, 62, 62);"> Đã đặt</label>
+                 </div>
+             </div>
+             <div class="clear"></div>
+            <div style="display: flex; width: 100%;">
+                <div class="selected-seat">
+                    <p style="text-align: left;">Ghế đã chọn: </p>
+                    <div style="padding: 3%;">
+                        <span style="color: #F15A24; font-weight: bold;" *ngFor="let i of listSeatsChoose">{{i.name}} </span>  
+                    </div>
+                </div>
+                <div class="total">
+                    <p>Tổng tiền: </p>
+                    <p><span> {{totalPrice}} đ</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="back">
+        <button class="button" [routerLink]="['']" style="margin-left: -10px;"><i class="fas fa-chevron-left"></i> Quay Lại</button>        
+    </div>
+    <div class="cont">
+        <button class="button" (click)="onContinue()">Tiếp Tục<i class="fas fa-chevron-right"></i></button>
+    </div>
+</section>
+<app-footer></app-footer>

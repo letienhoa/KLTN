@@ -1,0 +1,176 @@
+<section>
+    <div class="account-container">
+        <div class="account-chart">
+            <div style="padding: 1rem;">
+              <canvas baseChart 
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+           
+            >
+          </canvas>
+            </div> 
+        </div>
+        <div class="account-table">
+          <div style="padding: 0.5rem;">
+            <h2 class="title">Danh sách tài khoản</h2>
+          </div>
+          <table style="height: 250px; overflow-x:auto;">
+            <tr>
+              <th id="table-top-left">STT</th>
+              <th>User Name</th>
+              <th>Chức vụ</th>
+              <th></th>
+              <th id="table-top-right"></th>
+            </tr>
+            <tr>
+              <td>Jill</td>
+              <td>Smith</td>
+              <td>50</td>
+            
+              <td style="color: #00613d;"><i class="fas fa-edit"></i></td> 
+              <td style="color: #ef5222;"><i class="fas fa-user-times"></i></td> 
+            </tr>
+            <tr>
+              <td>Jill</td>
+              <td>Smith</td>
+              <td>50</td>
+            
+              <td style="color: #00613d;"><i class="fas fa-edit"></i></td> 
+              <td style="color: #ef5222;"><i class="fas fa-user-times"></i></td> 
+            </tr>
+            <tr>
+              <td>Jill</td>
+              <td>Smith</td>
+              <td>50</td>
+            
+              <td style="color: #00613d;"><i class="fas fa-edit"></i></td> 
+              <td style="color: #ef5222;"><i class="fas fa-user-times"></i></td> 
+            </tr>
+            <tr>
+              <td>Jill</td>
+              <td>Smith</td>
+              <td>50</td>
+            
+              <td style="color: #00613d;"><i class="fas fa-edit"></i></td> 
+              <td style="color: #ef5222;"><i class="fas fa-user-times"></i></td> 
+            </tr>
+            <tr>
+              <td>Jill</td>
+              <td>Smith</td>
+              <td>50</td>
+            
+              <td style="color: #00613d;"><i class="fas fa-edit"></i></td> 
+              <td style="color: #ef5222;"><i class="fas fa-user-times"></i></td> 
+            </tr>
+            <tr>
+              <td>Jill</td>
+              <td>Smith</td>
+              <td>50</td>
+            
+              <td style="color: #00613d;"><i class="fas fa-edit"></i></td> 
+              <td style="color: #ef5222;"><i class="fas fa-user-times"></i></td> 
+            </tr>
+          </table>
+        </div>
+    </div>
+    <div class="account" >
+        <h2 class="title acount-title">Thêm tài khoản nhân viên</h2>
+        <div style="display: flex; justify-content: space-between;">
+          <div class="form">
+            <p>Thông tin cá nhân</p>
+            <div class="form-input">
+              <label>Họ và tên: </label>
+              <input type="text">
+            </div>
+            <div class="form-input">
+              <label>Số điện thoại: </label>
+              <input type="text">
+            </div>
+            <div class="form-input">
+              <label>CMND: </label>
+              <input type="text">
+            </div>
+            <div class="form-input">
+              <label>Nơi ở thường trú: </label>
+              <input type="text">
+            </div>
+          </div>
+          <hr style="border-left: 0.5px solid #f6f6f6;">
+          <div class="form">
+            <p>Thông tin tài khoản</p>
+            <div class="form-input">
+              <label>Tên tài khoản: </label>
+              <input type="text">
+            </div>
+            <div class="form-input">
+              <label>Mật khẩu: </label>
+              <input type="text">
+            </div>
+            <div class="form-input">
+              <label>Nhập lại mk: </label>
+              <input type="text">
+            </div>
+            <div class="form-input">
+              <label>Gmail: </label>
+              <input type="text">
+            </div>
+            <div class="form-input">
+              <button>Thêm tài khoản</button>
+            </div>
+          </div>
+        </div>
+        
+    </div>
+    <div class="account edit">
+      <h2 class="title edit-title">Chỉnh sửa tài khoản nhân viên</h2>
+      <div style="display: flex; justify-content: space-between;">
+        <div class="form">
+          <p>Thông tin cá nhân</p>
+          <div class="form-input">
+            <label>Họ và tên: </label>
+            <input type="text">
+          </div>
+          <div class="form-input">
+            <label>Số điện thoại: </label>
+            <input type="text">
+          </div>
+          <div class="form-input">
+            <label>CMND: </label>
+            <input type="text">
+          </div>
+          <div class="form-input">
+            <label>Nơi ở thường trú: </label>
+            <input type="text">
+          </div>
+        </div>
+        <hr style="border-left: 0.5px solid #f6f6f6;">
+        <div class="form">
+          <p>Thông tin tài khoản</p>
+          <div class="form-input">
+            <label>Tên tài khoản: </label>
+            <input type="text">
+          </div>
+          <div class="form-input">
+            <label>Mật khẩu: </label>
+            <input type="text">
+          </div>
+          <div class="form-input">
+            <label>Nhập lại mk: </label>
+            <input type="text">
+          </div>
+          <div class="form-input">
+            <label>Gmail: </label>
+            <input type="text">
+          </div>
+          <div class="form-input">
+            <button>Lưu thay đổi</button>
+          </div>
+        </div>
+      </div>
+      
+  </div>
+</section>

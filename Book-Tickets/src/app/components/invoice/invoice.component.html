@@ -1,0 +1,42 @@
+<app-header [index]=3 ></app-header>
+<section *ngIf="!isShow" class="container">
+    <div class="invoice">
+        <h2>Tra cuu hoa don</h2>
+        <div style="margin: 3% 0%;"><label for="">Nhap ma ve</label></div>
+       <div style="display:flex; width: 100%; height: 32px;">
+           <input type="text">
+           <button id="btn-search" type="submit" (click)="onSearch()">Tim Kiem</button>
+        </div>
+    </div>
+</section>
+<section *ngIf="isShow" class="container ">
+    <div class="infor-invoice">
+
+            <h2 class="title">THÔNG TIN VÉ</h2>
+       
+            <div style="display: flex; justify-content: center;">
+                <p style="width: 30%; color:black;">Ngày mua: <span style="margin-left: 1rem; text-align: right">{{ticket.ngay_dat}}</span></p>
+                <p style="width: 30%; color:black;">Giờ bán: <span style="margin-left: 1rem; text-align: right">{{ticket.ngay_thanh_toan}}:00 h</span></p>
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <p style="width: 30%; color:black;">Mã vé: <span style="margin-left: 1rem; text-align: right">{{ticket.code}}</span></p>
+                <p style="width: 30%; color:black;">Giờ chạy: <span style="margin-left: 1rem; text-align: right">{{ticket.gio_chay}}:00 h</span></p>
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <p style="width: 30%; color:black;">Tuyến: <span style="margin-left: 1rem; text-align: right">{{ticket.ben_di}} ⇒ {{ticket.ben_toi}}</span></p>
+                <p style="width: 30%; color:black;">Giường: <span style="margin-left: 1rem; text-align: right"> <ng-container *ngFor="let i of ticket.slot">
+                    {{i}}
+                </ng-container></span></p>
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <p style="width: 30%; color:black;">Số vé: <span style="margin-left: 1rem; text-align: right">{{ticket.slot.length}}</span></p>
+                <p style="width: 30%; color:black;">Tổng tiền: <span style="margin-left: 1rem; text-align: right">{{ticket.gia_ve}}đ</span></p>
+            </div> 
+        <div>
+            <button class="btn-back" (click)="onBack()">Quay lại</button>
+            <button class="btn-cancel" (click)="onCancel()">Hủy vé</button>
+        </div>
+    </div>
+   
+</section>
+<app-footer ></app-footer>

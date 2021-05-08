@@ -1,0 +1,187 @@
+<section>
+    <div class="bus-route">
+        <h2 class="title route-title">Biểu đồ thể hiện tổng tiền của tuyến xe</h2>
+        <div class="select-year">
+            <label for="">Chọn năm: </label>
+            <select>
+                <option>2021</option>
+                <option>2020</option>
+                <option>2019</option>
+                <option>2018</option>
+            </select>
+        </div>
+        <div>
+            <canvas baseChart 
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="barChartLegend"
+                [chartType]="barChartType"
+             
+                >
+            </canvas>
+        </div>
+    </div>
+    <div class="revenue">
+        <div class="part-bus-route">
+            <h2 class="title route-title">Top 3 tuyến xe có doanh thu cao nhất</h2>
+            <div class="table">
+                <table>
+                    <tr>
+                      <th id="table-top-left">STT</th>
+                      <th>Tuyến xe</th>
+                      <th>Giờ chạy</th>
+                      <th id="table-top-right"></th>
+                    </tr>
+                    <tr>
+                      <td>Jill</td>
+                      <td>Smith</td>
+                      <td>50</td>
+                    </tr>
+                    <tr>
+                      <td>Eve</td>
+                      <td>Jackson</td>
+                      <td>94</td>
+                    </tr>
+                  </table>
+            </div>
+            
+        </div>
+        <div class="part-bus-route">
+            <h2 class="title route-title notify">Top 3 tuyến xe có doanh thu thấp nhất</h2>
+            <div class="table">
+                <table>
+                    <tr class="notify">
+                      <th id="table-top-left">STT</th>
+                      <th>Tuyến xe</th>
+                      <th>Giờ chạy</th>
+                      <th id="table-top-right"></th>
+                    </tr>
+                    <tr>
+                      <td>Jill</td>
+                      <td>Smith</td>
+                      <td>50</td>
+                    </tr>
+                    <tr>
+                      <td>Eve</td>
+                      <td>Jackson</td>
+                      <td>94</td>
+                    </tr>
+                  </table>
+            </div>
+            
+        </div>
+    </div>
+    <div class="route-bus-management">
+        <div class="part-bus-route">
+            <h2 class="title route-title">Danh sách tuyến xe</h2>
+            <div class="table">
+                <table>
+                  <tr>
+                    <th id="table-top-left">STT</th>
+                    <th>Tuyến xe</th>
+                    <th>Giờ chạy</th>
+                    <th></th>
+                    <th id="table-top-right"></th>
+                  </tr>
+                  <tr>
+                    <td>Jill</td>
+                    <td>Smith</td>
+                    <td> 
+                      <select id="time">
+                        <option>20:00 h</option>
+                        <option>21:00 h</option>
+                      </select>
+                  </td>
+                    <td *ngIf="!isEnable" (click)="onEnable()"><i class="fas fa-map-marker-alt-slash notify"></i></td>
+                    <td *ngIf="isEnable" (click)="onEnable()"><i class="fas fa-map-marker-alt not-notify"></i></td>
+                  </tr>
+                </table>
+            </div>
+            
+        </div>
+        <div class="part-bus-route">
+            <h2 class="title route-title">Thong tin tuyen xe</h2>
+            <div class="table">
+                <div class="item">
+                  <div class="item-infor">
+                    <label for="">Ben di: </label>
+                    <select>
+                      <option>TP Ho Chi Minh</option>
+                      <option>Ha Noi</option>
+                      <option>Can Tho</option>
+                    </select>
+                  </div>
+                  <div class="item-infor">
+                    <label for="">Ben toi: </label>
+                    <select>
+                      <option>TP Ho Chi Minh</option>
+                      <option>Ha Noi</option>
+                      <option>Can Tho</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="item-infor">
+                    <label for="">Gia tien: </label>
+                    <input type="text"> <span> VND</span>
+                  </div>
+                  <div class="item-infor">
+                    <label for="">Thoi gian chay: </label>
+                    <select>
+                      <option>TP Ho Chi Minh</option>
+                      <option>Ha Noi</option>
+                      <option>Can Tho</option>
+                    </select>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="myModal" class="modal">
+  <div class="modal-form-bus-route">
+      <div class="form"> 
+        <h2 class="title notify">Thông tin tuyến</h2>
+        <form>
+          <p>Tuyến: </p>
+          <p>Giá vé: </p>
+          <div id="check">
+            <p><input type="radio" name="check" (click)="onCheck(0)" checked> Chặn cả tuyến</p>
+            <p><input type="radio" name="check" (click)="onCheck(1)"> Chặn giờ chạy của tuyến</p>
+          </div>
+          <div id="show-check">
+            <p>Chọn thời gian: 
+              <select>
+                <option>20:00 h</option>
+                <option>21:00 h</option>
+              </select>
+          </p>
+          </div>
+        </form>
+      </div>
+      <div id="vertical" class="form"> 
+        <h2 class="title notify">Thông tin những vé cần phải hoàn tiền</h2>
+        <table>
+          <tr>
+            <th id="table-top-left">STT</th>
+            <th>Tuyến xe</th>
+            <th>Giờ chạy</th>
+            <th></th>
+            <th id="table-top-right"></th>
+          </tr>
+          <tr>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>50</td>
+          </tr>
+        </table>
+
+        <div>
+          <button id="btn-disable">Hủy tuyến</button>
+        </div>
+      </div>
+     
+  </div>
+</section>
