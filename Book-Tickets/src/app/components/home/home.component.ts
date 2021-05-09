@@ -11,6 +11,7 @@ import {BusStation} from '../../model/bus-station';
 import { BusRouterServiceService } from 'src/app/services/router/bus-router-service.service';
 import { BusRouter, BusRouterPopular } from 'src/app/model/bus-router';
 import { ToastrService } from 'ngx-toastr';
+import { PaypalServiceService } from 'src/app/services/paypal/paypal-service.service';
 
 declare var $:any
 
@@ -27,8 +28,8 @@ export class HomeComponent implements OnInit {
   today:any;
   returnDay:any
 
-  listSearchToGo:BusStation[] = [];
-  listSearchToDestination:BusStation[] = [];
+  listSearchToGo:BusStation[] = [] as BusStation[];
+  listSearchToDestination:BusStation[] = [] as BusStation[];
 
   placeGo: string = "";
   placeDes: string = "";
@@ -57,7 +58,8 @@ export class HomeComponent implements OnInit {
   constructor( private router: Router
     ,private busStationService: BusStationServiceService
     ,private busRouterService: BusRouterServiceService
-    ,private toastr: ToastrService) { }
+    ,private toastr: ToastrService
+    ,private paypal: PaypalServiceService) { }
 
   ngOnInit(): void {
     this.load();
@@ -68,6 +70,15 @@ export class HomeComponent implements OnInit {
     this.getDate();
     this.getAllBusStation();
     this.getRoutesPopular();
+    this.onGetTokenPayPal();
+  }
+
+  onGetTokenPayPal(){
+    this.paypal.getTokenPayPal().subscribe(
+      data => {
+        sessionStorage.setItem("tokenPayPal", JSON.stringify(data.accessToken));
+      }
+    )
   }
 
   showSlide(){
@@ -144,6 +155,14 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  onShowSchedule(busRoute:BusRouterPopular){
+    (sessionStorage.setItem('routeDetail', JSON.stringify(busRoute)));
+    console.log("this is bus route")
+    this.router.navigate(["/schedule/detail/",busRoute.id])
+    console.log(busRoute);
+
+  }
+
   onCheckTyeCheck(type:any){
     var returnDayShow = <HTMLInputElement>document.getElementById("return-date");
     if(type==0){
@@ -162,14 +181,14 @@ export class HomeComponent implements OnInit {
   }
 
   setSelectionRange(type:any){
-    
+  
     var dataList = document.getElementsByClassName("data-list-container");
     if(type==0){
         dataList[0].classList.add("show");   
         dataList[1].classList.remove("show");
 
         if(!this.onCheckValue(this.listSearchToDestination, this.placeDes)) {
-          this.placeDes = this.listSearchToDestination[0].ben_toi;
+          /* this.placeDes = this.listSearchToDestination[0].ben_toi; */
           this.listSearchToGo = [];
         }
     }
@@ -178,7 +197,7 @@ export class HomeComponent implements OnInit {
         dataList[0].classList.remove("show");
 
       if(!this.onCheckValue(this.listSearchToGo, this.placeGo)) {
-        this.placeGo = this.listSearchToGo[0].ben_toi;
+      /*   this.placeGo = this.listSearchToGo[0].ben_toi; */
         this.listSearchToDestination = [];
       }
         

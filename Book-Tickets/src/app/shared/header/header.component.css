@@ -126,24 +126,17 @@
 .nav .nav-items .nav-link{
 
   font-weight: bold;
-
   padding: 1rem 1.4rem;
-
   position: relative;
- 
 }
 
-.nav .nav-items .item{
+.nav .nav-items .item-label{
   line-height: 35px;
   font-size: 18px;
 }
 
 .pick{
-  color: #ef5222;
-}
-
-.no-pick{
-  color: black;
+  color: #ef5222 !important;
 }
  
 .logo{
@@ -186,8 +179,6 @@ button{
 .nav-items a:hover{
   color:#ef5222;
 }
-
-
 
   
 @media screen and (max-width: 1320px){

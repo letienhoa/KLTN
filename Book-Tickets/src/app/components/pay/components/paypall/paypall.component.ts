@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ElementRef, ViewChild } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { PaypalServiceService } from 'src/app/services/paypal/paypal-service.service';
+import { TicketServiceService } from 'src/app/services/ticket/ticket-service.service';
+import { Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 declare var $: any;
 declare var paypal: any;
@@ -11,29 +16,59 @@ declare var paypal: any;
   styleUrls: ['./paypall.component.css'],
 })
 export class PaypallComponent implements OnInit {
+  @Output() newIsLoading = new EventEmitter<boolean>();
+
   @ViewChild('paypal', { static: true })
   paypalElement!: ElementRef;
 
   paidFor = false;
+  
+  inforCustomer:any;
+  inforRoute:any;
+  inforSeat: any;
 
-  customerInfor: any;
+  tickets:any[]=[];
+  tokenPayPal!: string;
 
-  constructor(private payPallService: PaypalServiceService) {}
+  constructor(private payPallService: PaypalServiceService
+    ,private ticketService: TicketServiceService
+    ,private toastr: ToastrService
+    ,private router: Router ) {}
 
   ngOnInit(): void {
-    this.customerInfor = JSON.parse(sessionStorage.getItem('TicketInfor')!);
+    this.tokenPayPal = JSON.parse(sessionStorage.getItem("tokenPayPal")!);
+    let description = '';
+    let price = 0;
+    this.inforCustomer = JSON.parse(sessionStorage.getItem("step3")!);
+    this.inforSeat = JSON.parse(sessionStorage.getItem("step2")!);
+    this.inforRoute = JSON.parse(sessionStorage.getItem("step1")!);
 
-    let description =
-      'Book ticket' +
-      this.customerInfor.ticketOneWay.departure.ben_toi +
+    if(this.inforSeat.length == 2){
+      this.tickets.push(this.inforSeat[0]);
+      this.tickets.push(this.inforSeat[1]);
+      description =
+      'Book ticket two way' +
+      this.inforRoute.departure.ben_toi +
       ' ⇒ ' +
-      this.customerInfor.ticketOneWay.destination.ben_toi;
-    let price = this.customerInfor.ticketOneWay.totalMoney / 22000;
-    this.payMent(description,price);
+      this.inforRoute.destination.ben_toi;
+    price = (this.tickets[1].totalMoney + this.tickets[0].totalMoney) / 22000;
+    }else{
+      this.tickets.push(this.inforSeat);
+      description =
+      'Book ticket one way' +
+      this.inforRoute.departure.ben_toi +
+      ' ⇒ ' +
+      this.inforRoute.destination.ben_toi;
+    price = (this.tickets[0].totalMoney) / 22000;
+    }
+
+  
+    this.payMent(description, price);
   }
 
-  payMent(description:any, price:any){
-    paypal.Buttons({
+  payMent(description:string, price:number){
+    paypal
+    .Buttons({
       createOrder: (data:any, actions:any) => {
         return actions.order.create({
           purchase_units: [
@@ -48,30 +83,128 @@ export class PaypallComponent implements OnInit {
         });
       },
       onApprove: async (data:any, actions:any) => {
+        console.log(data);
+        this.onClose();
         const order = await actions.order.capture();
-      /*   this.payPallService.getTransectionPayPal() */
-      this.payPallService.getTokenPayPal().subscribe(
-        data => {
-          this.payPallService.getTransectionPayPal(data.orderID,data.accessToken).subscribe(
-            data => {
-              let ticket ={
-               /*  gio_chay:this.customerInfor.ticketOneWay.runTime,
-                gio_ket_thuc:"",
-                id_tuyen_xe: this.customerInfor.routerId,
-                sdt: this.customerInfor.phone,
-                email: this.customerInfor.email,
-                date: this.customerInfor.ticketOneWay.dayGo,
-                gia_ve: this.customerInfor.ticketOneWay.totalMoney,
-                paypal_id: paypalId,
-                diem_xuong: this.customerInfor.ticketOneWay.destination,
-                slot: slots, */
-              }
+
+        this.payPallService.getTransectionPayPal(data.orderID, this.tokenPayPal).subscribe(
+          data => {
+         
+            let transaction = JSON.stringify(data);
+            let ticket = this.onSetTicketToBook(JSON.parse(transaction).purchase_units[0].payments.captures[0].id);
+            this.newIsLoading.emit(true);
+
+            if(this.inforRoute.isOneWay){
+              
+              this.ticketService.postCreateTicketOneWay(ticket).subscribe(
+                data => {
+                  this.newIsLoading.emit(false);
+                  console.log(data);
+                  this.toastr.success("Đặt vé thành công");
+                  this.router.navigate(["/"]);
+                },error => {
+                  this.newIsLoading.emit(false);
+                  this.toastr.warning("Đặt vé thất bại");
+                  
+                }
+              )
+            }else{
+              
+              this.ticketService.postCreateTicketTwoWay(ticket).subscribe(
+                data => {
+                  this.newIsLoading.emit(false);
+                  console.log(data);
+                  this.toastr.success("Đặt vé thành công");
+                  this.router.navigate(["/"]);
+                },error => {
+                  this.newIsLoading.emit(false);
+                  this.toastr.warning("Đặt vé thất bại");
+                  
+                }
+              )
             }
-          )
-        }
-      )
+          }
+        )
+
+        
+
       }
     })
+    .render(this.paypalElement.nativeElement);
+  }
+
+
+  onSetTicketToBook(paypalId:any){
+    let ticket;
+    let slotsOneWay = [];
+    let slotsTwoWay = [];
+
+    if(this.inforRoute.isOneWay){
+      for(let i of this.tickets[0].seats){
+        slotsOneWay.push({
+          ten:'',
+          so_ghe:i.stt,
+          noi_xuong:'',
+          dia_chi:''
+        })
+      }
+      ticket = {
+        gio_chay:this.tickets[0].time,
+        gio_ket_thuc:'',
+        id_tuyen_xe:this.tickets[0].routerId,
+        sdt:this.inforCustomer.phone,
+        email:this.inforCustomer.email,
+        date:this.inforRoute.daygo,
+        gia_ve:this.tickets[0].totalMoney,
+        paypal_id: paypalId,
+        vnpay_id:'null',
+        diem_xuong:this.inforRoute.destination.ben_toi,
+        slot:slotsOneWay
+      }
+    }
+    else{
+      for(let i of this.tickets[0].seats){
+        slotsOneWay.push({
+          ten:'',
+          so_ghe:i.stt,
+          noi_xuong:'',
+          dia_chi:''
+        })
+      }
+      for(let i of this.tickets[1].seats){
+        slotsTwoWay.push({
+          ten:'',
+          so_ghe:i.stt,
+          noi_xuong:'',
+          dia_chi:''
+        })
+      }
+      ticket = {
+        gio_chay:this.tickets[0].time,
+        gio_ket_thuc:'',
+        id_tuyen_xe:this.tickets[0].routerId,
+        sdt:this.inforCustomer.phone,
+        email:this.inforCustomer.email,
+        date:this.inforRoute.daygo,
+        gia_ve:this.tickets[0].totalMoney,
+
+        paypal_id: paypalId,
+        diem_xuong:this.inforRoute.destination.ben_toi,
+        slot:slotsOneWay,
+        vnpay_id:'null',
+
+        gio_chay2:this.tickets[1].time,
+        gio_ket_thuc2:'',
+        id_tuyen_xe2:this.tickets[1].routerId,
+        date2:this.inforRoute.returnday,
+        gia_ve2:this.tickets[1].totalMoney,
+        diem_xuong2:this.inforRoute.departure.ben_toi,
+        slot2:slotsTwoWay
+      }
+    }
+
+    console.log(ticket);
+    return ticket;
   }
 
   onClose() {

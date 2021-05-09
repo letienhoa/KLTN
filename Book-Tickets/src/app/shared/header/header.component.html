@@ -40,10 +40,18 @@
             </div>
             <div id="people">
                 <ul class="nav-items">
-                    <li class="nav-link"><a [routerLink]="['']"><div class="item">Trang chủ</div></a></li>
-                    <li class="nav-link"><a [routerLink]="['/schedule']"><div class="item">Lịch trình</div></a></li>                
-                    <li class="nav-link"><a [routerLink]="['/policy']"><div class="item">Điều khoản</div></a></li>
-                    <li class="nav-link"><a [routerLink]="['/invoice']"><div class="item">Hóa đơn</div></a></li>
+                    <li  class="nav-link" *ngIf="index==0"><a [routerLink]="['']"><div class="item-label pick">Trang chủ</div></a></li>
+                    <li  class="nav-link" *ngIf="index!=0"><a [routerLink]="['']"><div class="item-label">Trang chủ</div></a></li>
+
+                    <li class="nav-link" *ngIf="index==1"><a [routerLink]="['/schedule']"><div class="item-label pick">Lịch trình</div></a></li>                
+                    <li class="nav-link" *ngIf="index!=1"><a [routerLink]="['/schedule']"><div class="item-label">Lịch trình</div></a></li>                
+                   
+                    <li class="nav-link" *ngIf="index==2"><a [routerLink]="['/policy']"><div class="item-label pick">Điều khoản</div></a></li>
+                    <li class="nav-link" *ngIf="index!=2"><a [routerLink]="['/policy']"><div class="item-label ">Điều khoản</div></a></li>
+                    
+                    <li class="nav-link" *ngIf="index==3"><a [routerLink]="['/invoice']"><div class="item-label pick">Hóa đơn</div></a></li>
+                    <li class="nav-link" *ngIf="index!=3"><a [routerLink]="['/invoice']"><div class="item-label ">Hóa đơn</div></a></li>
+
                     <li class="nav-link"><a ><div class="item">Thông báo</div></a></li>
                 </ul>
             </div>

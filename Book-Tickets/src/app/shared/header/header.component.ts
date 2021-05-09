@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
   customer!:Customer;
   
 
-  @Input() index = 0;
+  @Input() index:number = 0;
   @Input() pointAward = "";
   @Input() totalPoint = "";
 
@@ -31,32 +31,20 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+   
     this.customer = {} as Customer;
-    this.onResetPage(this.index);
     
     if(localStorage.getItem("LogInSuccess")!=null){
       this.logInSuccess = true;
       console.log(localStorage.getItem("LogInSuccess"));
     }
     else this.logInSuccess = false;
+
   }
 
   onClick(){
     var navList = document.getElementsByClassName('nav');
     navList[0].classList.toggle('collapse');
-  }
-
-  onResetPage(index:any){
-    var navList = document.getElementsByClassName('nav-items');
-    var itemList = navList[0].getElementsByClassName('item');
-  
-    for(let i = 0; i<index; i++){
-      if(i!=index){
-        itemList[i].classList.add('no-pick');
-      }
-    } 
-
-    if(index!=-1) itemList[index].classList.add('pick');
   }
 
   onLogIn(){
@@ -115,7 +103,7 @@ export class HeaderComponent implements OnInit {
     this.customer.ten_khach_hang = event.tenKh;
     this.logInSuccess = event.status;
 
-    this.onResetPage(0);
+    this.index = 0;
     $('#myModal').hide();
     if(event == false){
       return alert("Sai tài khoản mật khẩu");

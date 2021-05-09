@@ -9,6 +9,7 @@ import { environment } from '@env/environment';
 })
 export class PaypalServiceService extends BaseServiceService {
   private URL = environment.baseUrl + '/paypal';
+  /* https://api.sandbox.paypal.com/v2/checkout/orders/ */
 
   constructor(http: HttpClient, private httpP: HttpClient) {
     super(http);
@@ -26,7 +27,7 @@ export class PaypalServiceService extends BaseServiceService {
         Authorization: token,
       }),
     };
-    let url = `${this.URL}/${orderId}`;
+    let url = `https://api.sandbox.paypal.com/v2/checkout/orders/${orderId}`;
     return this.httpP.get(url,httpOption);
   }
 

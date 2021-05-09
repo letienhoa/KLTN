@@ -14,11 +14,11 @@ export class TicketServiceService extends BaseServiceService {
     super(http);
   }
 
-  postCreateTicketOneWay(ticket: Ticket) {
+  postCreateTicketOneWay(ticket: any) {
     return this.onPost(`${this.URL}/create`, ticket);
   }
 
-  postCreateTicketTwoWay(ticket: TicketTwoWay) {
+  postCreateTicketTwoWay(ticket: any) {
     return this.onPost(`${this.URL}/create2`, ticket);
   }
 

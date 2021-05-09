@@ -38,7 +38,8 @@ import { SuccessComponent } from './shared/notification/success/success.componen
 import { ToastrModule } from 'ngx-toastr';
 import { AwardPointComponent } from './components/user/award-point/award-point.component';
 import { VnpayComponent } from './components/pay/components/vnpay/vnpay.component';
-
+import { NgxPayPalModule } from 'ngx-paypal';
+import { VnpayService } from './services/vnpay/vnpay.service';
 
 
 
@@ -82,12 +83,13 @@ import { VnpayComponent } from './components/pay/components/vnpay/vnpay.componen
     HttpClientModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxPayPalModule
     
   ],
   providers: [
-    BaseServiceService
-
+    BaseServiceService,
+    VnpayService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,8 @@
+import { Step2 } from './../../../model/book-ticket-steps';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { tick } from '@angular/core/testing';
 
 declare var $:any
 
@@ -10,12 +12,16 @@ declare var $:any
   styleUrls: ['./payment.component.css']
 })
 export class PaymentComponent implements OnInit {  
+  isLoading = false;
+
   inforCustomer:any;
   inforRoute:any;
   inforSeat: any;
 
   isSelectTypePay = false;
   type!:number;
+
+  tickets:any[]=[];
 
   constructor(private router:Router,
     private toastr: ToastrService) { }
@@ -24,9 +30,23 @@ export class PaymentComponent implements OnInit {
     this.inforCustomer = JSON.parse(sessionStorage.getItem("step3")!);
     this.inforSeat = JSON.parse(sessionStorage.getItem("step2")!);
     this.inforRoute = JSON.parse(sessionStorage.getItem("step1")!);
+    
+    if(this.inforSeat.length == 2){
+      this.tickets.push(this.inforSeat[0]);
+      this.tickets.push(this.inforSeat[1]);
+    }else{
+      this.tickets.push(this.inforSeat);
+    }
+    console.log("Step 1");
     console.log(this.inforRoute);
-    console.log(this.inforSeat);
+    console.log("step 2");
+    console.log(this.tickets);
+    console.log("step 3");
     console.log(this.inforCustomer);
+  }
+
+  Loading(isLoading: boolean){
+    this.isLoading = isLoading;
   }
 
   onSelectTypePay(type: number){
@@ -46,28 +66,6 @@ export class PaymentComponent implements OnInit {
       return;
     }
 
-    let ticketInfor = {
-      routerId: this.inforSeat.routerId,
-      customerName: this.inforCustomer.name,
-      phone: this.inforCustomer.phone,
-      email: this.inforCustomer.email,
-      ticketOneWay: {
-        departure: this.inforRoute.departure,
-        destination: this.inforRoute.destination,
-        runTime: this.inforSeat.time,
-        seats: this.inforSeat.seats,
-        totalMoney: this.inforSeat.totalMoney,
-        dayGo: this.inforRoute.daygo
-      },
-      ticketTwoWay: {
-        router: "",
-        runTime: "",
-        seats: [],
-        totalMoney: ""
-      }
-    }
-
-    sessionStorage.setItem("TicketInfor", JSON.stringify(ticketInfor));
     $('#myModalPay').show();
   }
 }

@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header [index]=0></app-header>
 <main>
     <img src="./assets/background.png" alt="">
     <div class="container" id="adwad">
@@ -13,7 +13,9 @@
                 <div class="place-select-container">
                     <div class="auto-complete-place-container">
                         <label for="" class="title" style="text-align: center;">Điểm đi</label>                        
-                        <input type="text" class="select-place" value="{{placeGo}}"  placeholder="Chọn nơi đi" (click)="setSelectionRange(0)" (keyup)="onSelectDateOrigin($event.target,0)" spellcheck="true">
+                        <input type="text" class="select-place" value="{{placeGo}}"  placeholder="Chọn nơi đi" 
+                        (click)="setSelectionRange(0)" (keyup)="onSelectDateOrigin($event.target,0)" 
+                        spellcheck="true">
                         <div class="data-list-container hide">
                             <ul class="place-list" *ngIf="listSearchToGo.length == 0">
                                 <li  class="place-list-item" *ngFor="let i of busStations">
@@ -87,7 +89,7 @@
            <div class="box-place-popular">
                 <div class="placed placed-left">
                     <ng-container *ngFor="let item of busRoutesPopular; let indexOfElement=index">
-                        <div *ngIf="indexOfElement<4" class="placed-infor">
+                        <div *ngIf="indexOfElement<4" class="placed-infor" (click)="onShowSchedule(item)">
                             <img src="{{item.hinh_anh}}" alt="#" style="width: 40%;">
                             <div class="placed-infor-detail"  >
                                 <div>
@@ -106,7 +108,7 @@
                 </div>
                 <div class="placed">
                     <ng-container *ngFor="let item of busRoutesPopular; let indexOfElement=index">
-                        <div *ngIf="indexOfElement>=4" class="placed-infor">
+                        <div *ngIf="indexOfElement>=4" class="placed-infor" (click)="onShowSchedule(item)">
                             <img src="{{item.hinh_anh}}" alt="#" style="width: 40%;">
                             <div class="placed-infor-detail"  >
                                 <div>

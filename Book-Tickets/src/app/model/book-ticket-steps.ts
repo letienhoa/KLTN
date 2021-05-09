@@ -12,3 +12,4 @@ export interface Step2 {
   number:number;
   totalMoney:number;
 }
+
