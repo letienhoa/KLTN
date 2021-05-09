@@ -125,7 +125,7 @@ public class Paypalcontroller {
 
 			Sale sale = new Sale();
 			sale.setId(ve.getPaypalId().toString());
-			if (ve.getPaypalId() != null) {
+			if (!ve.getPaypalId().equals("isNull")) {
 				try {
 					sale.refund(apiContext, refund);
 				} catch (PayPalRESTException e) {
@@ -181,7 +181,7 @@ public class Paypalcontroller {
 				refund.setAmount(amount);
 				Sale sale = new Sale();
 				sale.setId(x.getPaypalId().toString());
-				if (x.getPaypalId() != null) {
+				if (!x.getPaypalId().equals("isNull")) {
 					try {
 						sale.refund(apiContext, refund);
 					} catch (PayPalRESTException e) {

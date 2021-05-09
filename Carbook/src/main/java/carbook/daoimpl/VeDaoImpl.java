@@ -70,13 +70,14 @@ public class VeDaoImpl extends AbstractDao<Integer, Ve> implements VeDao {
 
 	@Override
 	public Long create(VeRequest wrapper, String slot, String code) {
-		if (wrapper.getDiemXuong() == null) {
+		if (wrapper.getDiemXuong().equals("null")) {
 			wrapper.setDiemXuong("Nhà");
 		}
+		
 		ProcedureCall procedureCall = this.getSession().createStoredProcedureCall("sp_insert_ve_giuong_map");
 		procedureCall.registerParameter("gioChay", Integer.class, ParameterMode.IN).bindValue(wrapper.getGioChay());
 		procedureCall.registerParameter("gioKetThuc", Integer.class, ParameterMode.IN)
-				.bindValue(wrapper.getGioKetThuc());
+				.bindValue(0);
 		procedureCall.registerParameter("idTuyenXe", Integer.class, ParameterMode.IN).bindValue(wrapper.getIdTuyenXe());
 		procedureCall.registerParameter("sdt", String.class, ParameterMode.IN).bindValue(wrapper.getSdt());
 		procedureCall.registerParameter("email", String.class, ParameterMode.IN).bindValue(wrapper.getEmail());
