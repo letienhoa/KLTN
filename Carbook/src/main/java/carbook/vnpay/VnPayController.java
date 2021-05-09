@@ -63,7 +63,6 @@ public class VnPayController {
 			@RequestParam(name = "sdt", required = false, defaultValue = "null") String sdt,
 			@RequestParam(name = "email", required = false, defaultValue = "null") String email,
 			@RequestParam(name = "date", required = false, defaultValue = "null") String date,
-			@RequestParam(name = "diem_xuong", required = false, defaultValue = "null") String diem_xuong,
 			@RequestParam(name = "code_slot1", required = false, defaultValue = "null") String code_slot1,
 			@RequestParam(name = "code_slot2", required = false, defaultValue = "null") String code_slot2)
 			throws UnsupportedEncodingException {
@@ -115,7 +114,6 @@ public class VnPayController {
 			valueOfCodeSlot2.setEmail(email);
 			valueOfCodeSlot2.setPaypalId("isNull");
 			valueOfCodeSlot2.setVnpayId(vnp_TransactionNo);
-			valueOfCodeSlot2.setDiemXuong(diem_xuong);
 			messageSQL1 = veDao.create(valueOfCodeSlot2, slots2, code2);
 			System.out.print(messageSQL1);
 		}
@@ -154,7 +152,6 @@ public class VnPayController {
 		valueOfCodeSlot.setEmail(email);
 		valueOfCodeSlot.setPaypalId("isNull");
 		valueOfCodeSlot.setVnpayId(vnp_TransactionNo);
-		valueOfCodeSlot.setDiemXuong(diem_xuong);
 		Long messageSQL2 = veDao.create(valueOfCodeSlot, slots, code);
 		System.out.print(messageSQL2);
 		if (messageSQL1 == 1 || message1 == 1 || message2 == 1 || messageSQL2 == 1) {
@@ -192,6 +189,7 @@ public class VnPayController {
 		wrapperTemp1.setGioKetThuc(wrapper.getGioKetThuc());
 		wrapperTemp1.setGioChay(wrapper.getGioChay());
 		wrapperTemp1.setSlot(wrapper.getSlot());
+		wrapperTemp1.setDiemXuong(wrapper.getDiemXuong());
 		Double vnp_Amount = wrapper.getGiaVe();
 		Date dt = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -209,6 +207,7 @@ public class VnPayController {
 		wrapperTemp.setGioKetThuc(wrapper.getGioKetThuc2());
 		wrapperTemp.setGioChay(wrapper.getGioChay2());
 		wrapperTemp.setSlot(wrapper.getSlot2());
+		wrapperTemp.setDiemXuong(wrapper.getDiemXuong2());
 		// Nếu là vé 2 chiều
 		if (wrapper.getGioChay2() != null) {
 			vnp_Amount = wrapper.getGiaVe() + wrapper.getGiaVe2();
