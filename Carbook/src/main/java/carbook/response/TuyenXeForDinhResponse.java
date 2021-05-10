@@ -1,45 +1,33 @@
-package carbook.entity;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+package carbook.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity
-@Table(name="tuyen_xe")
-public class TuyenXe {
+public class TuyenXeForDinhResponse {
 
-	@Id
-	@Column(name="id")
 	private int id;
 	
+	@JsonProperty("diem_di")
+	private String diemDi;
+	
+	@JsonProperty("diem_toi")
+	private String diemToi;
+	
 	@JsonProperty("diem_di_id")
-	@Column(name="diem_di_id")
-	private int diemDiId;
+	private Integer diemDiId;
 	
 	@JsonProperty("diem_toi_id")
-	@Column(name="diem_toi_id")
-	private int diemToiId;
+	private Integer diemToiId;
 	
 	@JsonProperty("khoang_cach")
-	@Column(name="khoang_cach")
 	private int khoangCach;
 	
 	@JsonProperty("gia_ca")
-	@Column(name="gia_ca")
 	private int giaCa;
 	
 	@JsonProperty("khoang_thoi_gian")
-	@Column(name="khoang_thoi_gian")
 	private int khoangThoiGian;
 	
 	private Integer status;
-	
-	public TuyenXe() {
-		
-	}
 
 	public int getId() {
 		return id;
@@ -49,20 +37,20 @@ public class TuyenXe {
 		this.id = id;
 	}
 
-	public int getDiemDiId() {
-		return diemDiId;
+	public String getDiemDi() {
+		return diemDi;
 	}
 
-	public void setDiemDiId(int diemDi) {
-		this.diemDiId = diemDi;
+	public void setDiemDi(String diemDi) {
+		this.diemDi = diemDi;
 	}
 
-	public int getDiemToiId() {
-		return diemToiId;
+	public String getDiemToi() {
+		return diemToi;
 	}
 
-	public void setDiemToiId(int diemToi) {
-		this.diemToiId = diemToi;
+	public void setDiemToi(String diemToi) {
+		this.diemToi = diemToi;
 	}
 
 	public int getKhoangCach() {
@@ -95,6 +83,22 @@ public class TuyenXe {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Integer getDiemDiId() {
+		return diemDiId;
+	}
+
+	public void setDiemDiId(Integer diemDiId) {
+		this.diemDiId = diemDiId;
+	}
+
+	public Integer getDiemToiId() {
+		return diemToiId;
+	}
+
+	public void setDiemToiId(Integer diemToiId) {
+		this.diemToiId = diemToiId;
 	}
 	
 	

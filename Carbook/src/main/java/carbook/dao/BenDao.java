@@ -17,6 +17,8 @@ public interface BenDao {
 	
 	Ben findOneByThanhPho(String thanhPho);
 	
+	String getNameBenById(Integer id);
+	
 	List<Ben> findAll();
 	
 	List<Ben> spGetBenToi(int benDiId);

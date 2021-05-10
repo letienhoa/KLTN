@@ -41,6 +41,7 @@ import carbook.request.TuyenXeRequest;
 import carbook.response.BaseResponse;
 import carbook.response.GioChayResponse;
 import carbook.response.TuyenXeCustomerResponse;
+import carbook.response.TuyenXeForDinhResponse;
 import carbook.service.EmailService;
 import carbook.service.PaypalServices;
 
@@ -140,10 +141,24 @@ public class TuyenXeController {
 		BaseResponse response = new BaseResponse();
 		TuyenXe tuyenXe = tuyenXeDao.findOne(id);
 		if (tuyenXe == null) {
+
 			response.setMessageError("Không tìm thấy tuyến xe phù hợp");
 			return new ResponseEntity<BaseResponse>(response, HttpStatus.BAD_REQUEST);
 		} else {
-			response.setData(tuyenXe);
+			Ben ben1 = benDao.findOne(tuyenXe.getDiemDiId());
+			Ben ben2 = benDao.findOne(tuyenXe.getDiemToiId());
+			TuyenXeForDinhResponse  tuyenXeForDinh=new TuyenXeForDinhResponse();
+			tuyenXeForDinh.setDiemDi(ben1.getTenBen());
+			tuyenXeForDinh.setDiemToi(ben2.getTenBen());
+			tuyenXeForDinh.setGiaCa(tuyenXe.getGiaCa());
+			tuyenXeForDinh.setId(tuyenXe.getId());
+			tuyenXeForDinh.setKhoangCach(tuyenXe.getKhoangCach());
+			tuyenXeForDinh.setKhoangThoiGian(tuyenXe.getKhoangThoiGian());
+			tuyenXeForDinh.setStatus(tuyenXe.getStatus());
+			tuyenXeForDinh.setDiemDiId(tuyenXe.getDiemDiId());
+			tuyenXeForDinh.setDiemToiId(tuyenXe.getDiemToiId());
+			
+			response.setData(tuyenXeForDinh);
 			return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
 
 		}

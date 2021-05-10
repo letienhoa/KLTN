@@ -102,4 +102,10 @@ public class BenDaoImpl extends AbstractDao<Integer, Ben> implements BenDao {
 		return ben;
 	}
 
+	@Override
+	public String getNameBenById(Integer id) {
+		String tenBen="ddd";
+		return tenBen;
+	}
+
 }
