@@ -28,10 +28,8 @@
                     <td>  {{item.khoang_cach}} KM</td>
                     <td> {{item.khoang_thoi_gian}} giờ</td>
                     <td><span class="detail" (click)="onDetail(item)">Chi tiết <i class="fas fa-info-circle"></i></span></td>
-                    <td ><span class="book">Đặt vé <i class="fas fa-calendar-check"></i></span></td>
+                    <td ><span class="book" (click)="onBookTicket(item)">Đặt vé <i class="fas fa-calendar-check"></i></span></td>
                 </tr>
-               
-                
             </table>
         </div>
     </div>

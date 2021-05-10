@@ -17,3 +17,11 @@ span{
     justify-content: space-between;
     margin: 2%;
 }
+
+#btn-payment{
+    width: 100%;
+    background: #ef5222;    
+    border-radius: 10px;
+    color: white;
+    font-size: 18px;
+}

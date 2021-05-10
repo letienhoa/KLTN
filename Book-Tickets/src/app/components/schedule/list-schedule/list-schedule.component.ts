@@ -76,4 +76,8 @@ export class ListScheduleComponent implements OnInit {
     })
   }
 
+  onBookTicket(busRoute:BusSchedule){
+    this.route.navigate(['/select-route',busRoute.id]);
+  }
+
 }

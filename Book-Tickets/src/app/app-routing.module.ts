@@ -17,9 +17,11 @@ import { AwardPointComponent } from './components/user/award-point/award-point.c
 import { InforAccountComponent } from './components/user/infor-account/infor-account.component';
 import { InforIndividualComponent } from './components/user/infor-individual/infor-individual.component';
 import { TicketBookingHistoryComponent } from './components/user/ticket-booking-history/ticket-booking-history.component';
+import { SelectRouteComponent } from './components/step-book-ticket/select-route/select-route.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent},
+  {path:'select-route/:id', component:SelectRouteComponent},
   {path:'select-seats', component:SelectSeatsComponent},
   {path:'select-seats-two-way', component:SelectSeatsTwoWayComponent},
   {path:'infor-customer', component:InforCustomerComponent},

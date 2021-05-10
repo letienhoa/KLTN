@@ -24,6 +24,10 @@ export class BusRouterServiceService extends BaseServiceService {
     return this.onGet(`${this.URL}/${id}/gio-chay?ngay=${ngay}`);
   }
 
+  getRouterInforById(id: Int16Array){
+    return this.onGet(`${this.URL}/get-tuyen-xe-by-id/${id}`);
+  }
+
   getRouterPopular(){
     return this.onGet(this.URL+"/get-tuyen-xe-pho-bien");
   }

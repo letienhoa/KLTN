@@ -28,3 +28,16 @@ export interface BusSchedule{
     khoang_thoi_gian:Int16Array;
     trang_thai:Int16Array;
 }
+
+export interface BusRouterInfor{
+    id:Int16Array;
+    diem_di:string;
+    diem_di_id: string;
+    diem_toi: string;
+    diem_toi_id: string;
+    gia_ca:Int16Array;
+    khoang_cach:Int16Array;
+    khoang_thoi_gian:Int16Array;
+    status:Int16Array;
+}
+

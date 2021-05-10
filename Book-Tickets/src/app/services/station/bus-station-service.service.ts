@@ -25,13 +25,16 @@ export class BusStationServiceService extends BaseServiceService {
     return this.onGet(`${this.URL}`);
   }
 
-  getStationsById(id: Int16Array) {
+  getDestinationStationsById(id: Int16Array) {
     return this.onGet(`${this.URL}/get-list-ben-toi?ben_di_id=${id}`);
   }
 
   getAllStation() {
-    let url = `${this.URL}`;
-    return this.onGet(url);
+    return this.onGet(`${this.URL}`);
+  }
+
+  getBusStationDetailById(id: Int16Array){
+    return this.onGet(`${this.URL}/get-detail/${id}`);
   }
 
   postCreateStation(busStation: BusStation) {

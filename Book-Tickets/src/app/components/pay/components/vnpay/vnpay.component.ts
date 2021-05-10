@@ -88,7 +88,7 @@ export class VnpayComponent implements OnInit {
         })
       }
       ticket = {
-        gio_chay:this.tickets[0].time,
+        gio_chay: parseInt(this.tickets[0].time),
         gio_ket_thuc:'',
         id_tuyen_xe:this.tickets[0].routerId,
         sdt:this.inforCustomer.phone,
@@ -108,7 +108,7 @@ export class VnpayComponent implements OnInit {
         slot2:slotsTwoWay
       }
     }
-
+    console.log("Data of ticket")
     console.log(ticket);
     return ticket;
   }

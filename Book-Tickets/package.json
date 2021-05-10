@@ -24,6 +24,7 @@
     "angular-notifier": "^9.0.1",
     "canvasjs": "^1.8.3",
     "chart.js": "^2.9.4",
+    "moment": "^2.29.1",
     "ng-click-outside": "^7.0.1",
     "ng2-charts": "^2.4.2",
     "ngx-paypal": "^7.0.0",

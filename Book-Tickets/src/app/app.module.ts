@@ -40,6 +40,7 @@ import { AwardPointComponent } from './components/user/award-point/award-point.c
 import { VnpayComponent } from './components/pay/components/vnpay/vnpay.component';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { VnpayService } from './services/vnpay/vnpay.service';
+import { SelectRouteComponent } from './components/step-book-ticket/select-route/select-route.component';
 
 
 
@@ -74,6 +75,7 @@ import { VnpayService } from './services/vnpay/vnpay.service';
     SuccessComponent,
     AwardPointComponent,
     VnpayComponent,
+    SelectRouteComponent,
   ],
   imports: [
     AppRoutingModule,

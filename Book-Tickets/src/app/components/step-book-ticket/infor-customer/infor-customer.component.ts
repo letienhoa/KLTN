@@ -47,6 +47,9 @@ export class InforCustomerComponent implements OnInit {
 
   load(){
     this.logInSuccess = JSON.parse(localStorage.getItem("LogInSuccess")!);
+    if(this.customerInfor.thanhPho==undefined){
+      this.customerInfor.thanhPho = '';
+    }
     if(this.logInSuccess!=null){
       this.customerService.getCustomerInfor(this.logInSuccess.id).subscribe(
         data => {
@@ -121,9 +124,11 @@ export class InforCustomerComponent implements OnInit {
   }
 
   onSelectCity(city: any) {
+    this.customerInfor.thanhPho = this.cities.find(c=>c.id==city.value)?.name!;
     this.cityService.getAllDistrict(city.value).subscribe(
       (data) => {
         this.districts = data;
+        console.log(data);
         this.customerForm.controls.district.setValue(this.districts[0].name);
       },
       (error) => {
