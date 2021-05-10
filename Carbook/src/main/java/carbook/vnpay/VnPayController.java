@@ -195,8 +195,8 @@ public class VnPayController {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 		String dateString = formatter.format(dt);
 		vnp_CreateDate = dateString;
-		listSlotVnPay.put(vnp_CreateDate, wrapperTemp1);
-		String codeSlot1 = dateString;
+		String codeSlot1 = dateString+"code1";
+		listSlotVnPay.put(codeSlot1, wrapperTemp1);
 		String codeSlot2 = "isNull";
 		String vnp_ReturnUrl = "";
 
@@ -211,7 +211,7 @@ public class VnPayController {
 		// Nếu là vé 2 chiều
 		if (wrapper.getGioChay2() != null) {
 			vnp_Amount = wrapper.getGiaVe() + wrapper.getGiaVe2();
-			codeSlot2 = formatter.format(new Date());
+			codeSlot2 = formatter.format(new Date())+"code2";
 			listSlotVnPay.put(codeSlot2, wrapperTemp);
 		} else {
 
