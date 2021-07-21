@@ -1,0 +1,116 @@
+.invoice{
+    width: 50%;
+    border-radius: 10px;
+    margin: 5% auto;
+    padding: 3% 5%;
+    margin-bottom: 300px;
+    box-shadow: 10px 15px 20px rgba(0, 0, 0, .1);
+} 
+
+.invoice h2{
+    text-align: center;
+    color: #00613d;
+}
+
+.incoive label{
+    font-size: 14px;
+}
+
+.invoice input, select{
+    font-size: 14px;
+    padding: 0px;
+    width: 100%;
+    outline: none;
+    padding: 2px;
+    border: 1px solid rgb(170, 165, 165);   
+}
+
+.invoice button{
+    width: 100%;
+    font-weight: bold;
+}
+
+.infor-invoice{
+    margin: 50px auto;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#btn{
+    padding-bottom: 50px;
+}
+
+.btn-cancel{
+    float: right; 
+    padding: 10px; width: 10%;
+    border-radius: 10px;
+    background: #F2754E;
+    color:white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.btn-cancel:hover{
+    cursor: pointer;
+    background: -webkit-linear-gradient(#F2754E);  
+
+}
+
+.btn-back{
+    float: left; 
+    padding: 10px; width: 10%;
+    border-radius: 10px;
+    background: #009344;  
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.btn-back:hover{
+    cursor: pointer;
+}
+
+.invoice .invoice-search .btn-confirm{
+    width: 35%;
+    font-size: 16px;
+    font-family: 'Oswald', sans-serif; 
+    border-bottom: 5px solid #009344;
+}
+
+.infor-invoice .title{
+    border-radius: 50px;
+    color: #009344;
+    padding-top: 50px;
+}
+
+table{
+    width: 100%;
+    padding-bottom: 50px;
+}
+
+table tr th {
+    width: 25%;
+    text-align: center;
+}
+
+.label{
+    color: #009344;
+    font-family: 'Oswald', sans-serif; 
+    font-size: 20px;
+    padding: 10px;
+}
+
+.value{
+    color: #F2754E;
+    font-family: 'Oswald', sans-serif; 
+    font-size: 20px;
+    padding: 10px;
+}
+
+
+#btn-search{
+    background: #00613d;
+    color:white;
+    border-radius: 4px;
+    margin-top: 1rem;
+}
